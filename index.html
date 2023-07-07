@@ -4,16 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri + React + TS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <title>null-auth</title>
   </head>
 
-  <body>
+  <body class="border h-[100dvh] w-[350px] border-black/10">
     <div
       data-tauri-drag-region
       id="titlebar"
-      class="fixed h-[30px] top-0 left-0 right-0 flex justify-between items-center bg-neutral-900"
+      class="fixed h-[30px] top-0 left-0 w-[350px] flex justify-between items-center bg-white border border-black/10 z-50"
     ></div>
     <div id="root"></div>
+    <div id="modal"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
