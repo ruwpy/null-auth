@@ -4,13 +4,21 @@ import { db } from "../lib/db";
 
 export const useAuth = () => {
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const getSession = async () => {
-    const {
-      data: { session },
-    } = await db.auth.getSession();
+    try {
+      setLoading(true);
+      const {
+        data: { session },
+      } = await db.auth.getSession();
 
-    setSession(session);
+      setSession(session);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -25,5 +33,5 @@ export const useAuth = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  return session;
+  return { session, loading };
 };
