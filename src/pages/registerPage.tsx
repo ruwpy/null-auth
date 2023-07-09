@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Icons } from "../components/icons";
 import { Input } from "../components/input";
 import { Button } from "../components/button";
@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { db } from "../lib/db";
+import { store } from "../store/localStore";
+import { hashString } from "../lib/rustFunctions";
 
 const RegisterFormSchema = z
   .object({
@@ -20,7 +22,6 @@ const RegisterFormSchema = z
 type RegisterDataType = z.infer<typeof RegisterFormSchema>;
 
 export const RegisterPage = () => {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -30,15 +31,18 @@ export const RegisterPage = () => {
   const onSubmit = handleSubmit(async (loginData: RegisterDataType) => {
     const { email, password } = loginData;
     const { data, error } = await db.auth.signUp({ email, password });
+    const hashedPassword = await hashString(password);
+    console.log(hashedPassword);
 
-    if (data) navigate("/");
+    // keeping password locally on user's pc for further encrypting & decrypting operations
+    await store.set("passphrase", hashedPassword);
+    await store.save();
+
     if (error) console.log(error);
-
-    // TODO: save password locally for user for further actions with crypting
   });
 
   return (
-    <div className="w-full h-full px-[20px] flex flex-col justify-center items-center">
+    <div className="fixed inset-0 px-[20px] flex flex-col justify-center items-center">
       <Icons.nullauth width={48} height={48} />
       <h1 className="text-[24px] text-center font-medium mt-[10px]">
         Register to null-auth

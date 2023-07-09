@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { db } from "../lib/db";
+import { toast } from "react-hot-toast";
 
 const LoginFormSchema = z.object({
   email: z.string().email(),
@@ -26,14 +27,16 @@ export const LoginPage = () => {
     const { email, password } = loginData;
     const { data, error } = await db.auth.signInWithPassword({ email, password });
 
-    if (data) navigate("/");
-    if (error) console.log(error);
+    if (data.user) navigate("/");
+    if (error) {
+      if (error.status === 400) toast.error(error.message);
+    }
 
     // TODO: save password locally for user for further actions with crypting
   });
 
   return (
-    <div className="w-full h-full px-[20px] flex flex-col justify-center items-center">
+    <div className="fixed inset-0 px-[20px] flex flex-col justify-center items-center">
       <Icons.nullauth width={48} height={48} />
       <h1 className="text-[24px] text-center font-medium mt-[10px]">
         Login to null-auth
