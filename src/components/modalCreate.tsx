@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 
-const formSchema = z.object({
+const FormSchema = z.object({
   secret: z.string().min(1, { message: "Required" }),
   label: z.string().min(1, { message: "Required" }),
   issuer: z.string().optional(),
@@ -16,9 +16,8 @@ export const ModalCreate = ({ modalOpen, setModalOpen }: ModalProps) => {
   const {
     register,
     handleSubmit,
-    clearErrors,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(formSchema) });
+  } = useForm({ resolver: zodResolver(FormSchema) });
 
   const onSubmit = handleSubmit((data) => {
     // logic for generate 2fa
