@@ -5,6 +5,7 @@ import { RegisterPage } from "./pages/registerPage";
 import { AuthWrapper } from "./components/authWrapper";
 import { Titlebar } from "./components/titlebar";
 import { useAuth } from "./hooks/useAuth";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { session } = useAuth();
@@ -13,6 +14,14 @@ function App() {
   return (
     <>
       <Titlebar />
+      <Toaster
+        position="bottom-left"
+        toastOptions={{
+          className:
+            "bg-neutral-900 text-white rounded-[10px] pl-[20px] ml-[5px] mb-[5px] h-[44px]",
+          duration: 2000,
+        }}
+      />
       <Router>
         <Routes>
           <Route

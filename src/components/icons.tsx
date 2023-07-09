@@ -1,6 +1,7 @@
-import { X, Minus, LucideProps, Trash2, Plus } from "lucide-react";
+import { X, Minus, LucideProps, Trash2, Plus, LogOut } from "lucide-react";
 
 export const Icons = {
+  logout: LogOut,
   plus: Plus,
   trash: Trash2,
   close: X,
