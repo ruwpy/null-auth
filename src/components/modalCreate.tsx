@@ -4,24 +4,50 @@ import { Input } from "./input";
 import { Modal, ModalProps } from "./modal";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { db } from "../lib/db";
+import { useAuth } from "../hooks/useAuth";
+import { useAccountsStore } from "../store/useAccountsStore";
+import { encryptString } from "../lib/rustFunctions";
 
 const FormSchema = z.object({
   secret: z.string().min(1, { message: "Required" }),
-  label: z.string().min(1, { message: "Required" }),
+  username: z.string().min(1, { message: "Required" }),
   issuer: z.string().optional(),
 });
 
+type FormDataType = z.infer<typeof FormSchema>;
+
 export const ModalCreate = ({ modalOpen, setModalOpen }: ModalProps) => {
+  const { session } = useAuth();
+  const { addAccount } = useAccountsStore();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(FormSchema) });
+  } = useForm<FormDataType>({ resolver: zodResolver(FormSchema) });
 
-  const onSubmit = handleSubmit((data) => {
-    // logic for generate 2fa
-    setModalOpen(false);
+  const onSubmit = handleSubmit(async (formData) => {
+    try {
+      const encryptedSecret = await encryptString(formData.secret.split(" ").join(""));
+      const { data } = await db
+        .from("accounts")
+        .insert([
+          {
+            user_id: session?.user.id,
+            secret: encryptedSecret,
+            username: formData.username,
+            issuer: formData.issuer,
+          },
+        ])
+        .select()
+        .single();
+
+      addAccount(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setModalOpen(false);
+    }
   });
 
   return (
@@ -35,14 +61,16 @@ export const ModalCreate = ({ modalOpen, setModalOpen }: ModalProps) => {
           <Input
             className={errors.secret?.message ? "outline-red-500 ring-transparent" : ""}
             placeholder="Secret - Required"
+            maxLength={512}
             {...register("secret")}
           />
           <Input
-            className={errors.label?.message ? "outline-red-500 ring-transparent" : ""}
-            placeholder="Label - Required"
-            {...register("label")}
+            className={errors.username?.message ? "outline-red-500 ring-transparent" : ""}
+            placeholder="Username - Required"
+            maxLength={512}
+            {...register("username")}
           />
-          <Input placeholder="Issuer" {...register("issuer")} />
+          <Input placeholder="Issuer" maxLength={512} {...register("issuer")} />
           <Button className="mt-[10px] self-center">Create</Button>
         </form>
       </div>

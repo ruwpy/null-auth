@@ -1,9 +1,32 @@
+import { db } from "../lib/db";
+import { useAccountsStore } from "../store/useAccountsStore";
+import { useUserStore } from "../store/useUserStore";
 import { Button } from "./button";
 import { Modal, ModalProps } from "./modal";
+import { toast } from "react-hot-toast";
 
-export const ModalDelete = ({ modalOpen, setModalOpen }: ModalProps) => {
-  const deleteHandle = () => {
-    // logic for deletion
+interface ModalDeleteProps extends ModalProps {
+  idToDelete: string | undefined;
+}
+
+export const ModalDelete = ({
+  idToDelete,
+  modalOpen,
+  setModalOpen,
+}: ModalDeleteProps) => {
+  const { user } = useUserStore();
+  const { deleteAccount } = useAccountsStore();
+
+  const deleteHandle = async () => {
+    try {
+      await db.from("accounts").delete().eq("id", idToDelete);
+
+      deleteAccount(idToDelete!);
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setModalOpen(false);
+    }
   };
 
   return (
