@@ -5,7 +5,7 @@ import { appWindow } from "@tauri-apps/api/window";
 export const Titlebar = () => {
   return createPortal(
     <>
-      <span className="flex items-center gap-[10px] pointer-events-none ml-[10px] text-neutral-900 text-[14px] font-medium">
+      <span className="flex items-center gap-[5px] pointer-events-none ml-[10px] text-neutral-900 text-[14px] font-medium">
         <Icons.nullauth width={15} height={15} />
         <span>null-auth</span>
       </span>
