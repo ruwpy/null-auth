@@ -8,6 +8,8 @@ import { z } from "zod";
 import { db } from "../lib/db";
 import { store } from "../store/localStore";
 import { hashString } from "../lib/rustFunctions";
+import { toast } from "react-hot-toast";
+import { AuthError } from "@supabase/supabase-js";
 
 const RegisterFormSchema = z
   .object({
@@ -31,14 +33,15 @@ export const RegisterPage = () => {
   const onSubmit = handleSubmit(async (loginData: RegisterDataType) => {
     const { email, password } = loginData;
     const { data, error } = await db.auth.signUp({ email, password });
-    const hashedPassword = await hashString(password);
-    console.log(hashedPassword);
-
-    // keeping password locally on user's pc for further encrypting & decrypting operations
-    await store.set("passphrase", hashedPassword);
-    await store.save();
-
-    if (error) console.log(error);
+    if (error) {
+      if (error.status === 400) return toast.error(error.message);
+    }
+    if (data) {
+      const hashedPassword = await hashString(password);
+      // keeping password locally on user's pc for further encrypting & decrypting operations
+      await store.set(`${email.split("@")[0]}-pass`, hashedPassword);
+      await store.save();
+    }
   });
 
   return (

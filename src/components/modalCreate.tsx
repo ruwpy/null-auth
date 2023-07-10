@@ -28,7 +28,11 @@ export const ModalCreate = ({ modalOpen, setModalOpen }: ModalProps) => {
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
-      const encryptedSecret = await encryptString(formData.secret.split(" ").join(""));
+      const encryptedSecret = await encryptString(
+        formData.secret.split(" ").join(""),
+        `${session?.user?.email!.split("@")[0]}-pass`
+      );
+
       const { data } = await db
         .from("accounts")
         .insert([

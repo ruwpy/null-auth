@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 
 interface ProtectedRouteProps {
   boolean: boolean;
-  children: React.ReactNode;
+  children: JSX.Element;
   redirectTo: string;
 }
 
@@ -17,4 +17,6 @@ export const AuthWrapper = ({ boolean, children, redirectTo }: ProtectedRoutePro
       return <Navigate to={redirectTo} />;
     }
   }
+
+  return <div />;
 };

@@ -1,7 +1,7 @@
 [package]
 name = "null-auth"
 version = "1.0.0"
-description = "secure TOTP generation app"
+description = "null-auth"
 authors = ["ruwpy"]
 license = ""
 repository = ""

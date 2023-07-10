@@ -7,15 +7,19 @@ import { IAccount } from "../types";
 import { Button } from "./button";
 import { toast } from "react-hot-toast";
 import { decryptString } from "../lib/rustFunctions";
+import { useUserStore } from "../store/useUserStore";
 
 export const SingleAccount = ({ account }: { account: IAccount }) => {
   const [code, setCode] = useState("000000");
   const [deleteSecretModalOpen, setDeleteSecretModalOpen] = useState(false);
   const [codeReveal, setCodeReveal] = useState(false);
+  const { user } = useUserStore();
 
   const getCode = async () => {
-    const decryptedSecret = await decryptString(account.secret);
-    console.log(decryptedSecret);
+    const decryptedSecret = await decryptString(
+      account.secret,
+      `${user?.email!.split("@")[0]}-pass`
+    );
 
     const code: string = await invoke("generate_totp", {
       secret: decryptedSecret,
