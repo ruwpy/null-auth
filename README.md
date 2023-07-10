@@ -35,6 +35,8 @@ TOTP authentication client built with <a href="https://github.com/tauri-apps/tau
 - [ ] accounts sorting
 - [ ] support export / import 2FA accounts
 - [ ] QR code scanning
+- [ ] offline mode
+- [ ] accounts backup
 
 ## License
 
