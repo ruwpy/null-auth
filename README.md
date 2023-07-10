@@ -1,7 +1,41 @@
-# Tauri + React + Typescript
+<h1 align="center">
+  <img src="./public/nullauth-white.svg" alt="app icon" width="128" />
+  <br>
+  <div>null-auth</div>
+</h1>
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+<h3 align="center">
+TOTP authentication client built with <a href="https://github.com/tauri-apps/tauri">tauri</a>.
+</h3>
 
-## Recommended IDE Setup
+<div align="center">
+  
+[![Windows Support](https://img.shields.io/badge/Windows-0078D6?style=flat&logo=windows&logoColor=white)](https://github.com/pwltr/tauthy/releases)
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+</div>
+
+## Features
+
+- secure storage
+- password encryption
+- fully offline
+
+## Screenshots
+
+<div align="center">
+  <img src="./screenshots/login.png" alt="login page" width="30%" />
+  <img src="./screenshots/dashboard.png" alt="dashboard page" width="30%" />
+</div>
+
+## Installation
+
+## Todo
+
+- [ ] automatic updates
+- [ ] accounts sorting
+- [ ] support export / import 2FA accounts
+- [ ] QR code scanning
+
+## License
+
+GPL-3.0 License. See [License](./LICENSE).
