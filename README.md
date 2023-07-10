@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="./public/nullauth.svg" alt="app icon" width="128" />
+  <img src="./public/nullauth-white.svg" alt="app icon" width="128" />
   <br>
   <div>null-auth</div>
 </h1>
