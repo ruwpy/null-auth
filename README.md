@@ -24,7 +24,7 @@ TOTP authentication client built with <a href="https://github.com/tauri-apps/tau
 
 <div align="center">
   <img src="./screenshots/login.png" alt="login page" height="600px" />
-  <img src="./screenshots/dashboard.png" alt="dashboard page" width="600px" />
+  <img src="./screenshots/dashboard.png" alt="dashboard page" height="600px" />
 </div>
 
 ## Installation
