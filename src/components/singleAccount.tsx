@@ -12,7 +12,7 @@ import { useUserStore } from "../store/useUserStore";
 export const SingleAccount = ({ account }: { account: IAccount }) => {
   const [code, setCode] = useState("000000");
   const [deleteSecretModalOpen, setDeleteSecretModalOpen] = useState(false);
-  const [codeReveal, setCodeReveal] = useState(false);
+  const [codeHovered, setCodeHovered] = useState(false);
   const { user } = useUserStore();
 
   const getCode = async () => {
@@ -44,36 +44,26 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setCodeReveal(false);
-    }, 3000);
-
-    return () => clearTimeout(timeout);
-  }, [codeReveal]);
-  const revealCode = () => {
-    if (codeReveal) {
-      navigator.clipboard.writeText(code);
-      toast.success("Copied!");
-    }
-
-    setCodeReveal(true);
-  };
-
   return (
     <>
       <div className="w-full flex justify-between items-center border-b py-[20px] border-black/10">
         <div className="w-full flex gap-[15px]">
           <div
-            onClick={() => revealCode()}
+            onClick={() => {
+              navigator.clipboard.writeText(code);
+              toast.success("Copied!");
+            }}
             className="font-code relative font-[600] text-[32px] rounded-[10px] cursor-pointer p-[10px]"
           >
-            <AnimatePresence mode="wait">
-              {!codeReveal && (
-                <div className="bg-black/5 backdrop-blur-[9px] absolute inset-0 rounded-[10px] border border-black/5" />
-              )}
-            </AnimatePresence>
-            <span className="select-none">{code}</span>
+            <m.div
+              onMouseEnter={() => setCodeHovered(true)}
+              onMouseOut={() => setCodeHovered(false)}
+              style={{
+                opacity: codeHovered ? "0" : "1",
+              }}
+              className="bg-black/5 absolute backdrop-blur-[9px] transition-opacity inset-0 rounded-[10px] border border-black/5"
+            />
+            <span className="w-fit">{code}</span>
           </div>
           <span className="flex flex-col leading-[20px] justify-center">
             <span className="font-bold">{account.issuer.toUpperCase()}</span>
