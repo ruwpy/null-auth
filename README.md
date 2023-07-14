@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="./public/nullauth-white.svg" alt="app icon" width="128" />
+  <img src="./public/nullauth-white.svg" alt="app icon" width="96" />
   <br>
   <div>null-auth</div>
 </h1>
@@ -14,12 +14,6 @@ TOTP authentication client built with <a href="https://github.com/tauri-apps/tau
 
 </div>
 
-## Features
-
-- secure storage
-- password encryption
-- fully offline
-
 ## Screenshots
 
 <div align="center">
@@ -27,7 +21,9 @@ TOTP authentication client built with <a href="https://github.com/tauri-apps/tau
   <img src="./screenshots/dashboard.png" alt="dashboard page" height="600px" />
 </div>
 
-## Installation
+## Download
+
+Go to [release page](https://github.com/ruwpy/null-auth/releases)
 
 ## Todo
 
