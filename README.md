@@ -10,7 +10,7 @@ TOTP authentication client built with <a href="https://github.com/tauri-apps/tau
 
 <div align="center">
   
-[![Windows Support](https://img.shields.io/badge/Windows-0078D6?style=flat&logo=windows&logoColor=white)](https://github.com/pwltr/tauthy/releases)
+[![Windows Support](https://img.shields.io/badge/Windows-0078D6?style=flat&logo=windows&logoColor=white)](https://github.com/ruwpy/null-auth/releases)
 
 </div>
 
