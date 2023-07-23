@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAccountsStore } from "../store/useAccountsStore";
-import { db } from "../lib/db";
-import { useUserStore } from "../store/useUserStore";
+import { useAccountsStore } from "@/store/useAccountsStore";
+import { db } from "@/lib/db";
+import { useUserStore } from "@/store/useUserStore";
 import { SingleAccount } from "./singleAccount";
 
 export const Accounts = () => {

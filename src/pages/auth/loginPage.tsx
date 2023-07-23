@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Icons } from "../components/icons";
-import { Input } from "../components/input";
-import { Button } from "../components/button";
+import { Icons } from "../../components/ui/icons";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { db } from "../lib/db";
+import { db } from "../../lib/db";
 import { toast } from "react-hot-toast";
 
 const LoginFormSchema = z.object({

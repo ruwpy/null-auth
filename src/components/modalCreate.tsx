@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
-import { Button } from "./button";
-import { Input } from "./input";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { Modal, ModalProps } from "./modal";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { db } from "../lib/db";
-import { useAuth } from "../hooks/useAuth";
-import { useAccountsStore } from "../store/useAccountsStore";
-import { encryptString } from "../lib/rustFunctions";
+import { db } from "@/lib/db";
+import { useAuth } from "@/hooks/useAuth";
+import { useAccountsStore } from "@/store/useAccountsStore";
+import { encryptString } from "@/lib/rustFunctions";
 
 const FormSchema = z.object({
   secret: z.string().min(1, { message: "Required" }),

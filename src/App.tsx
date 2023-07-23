@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { MainPage } from "./pages/mainPage";
-import { LoginPage } from "./pages/loginPage";
-import { RegisterPage } from "./pages/registerPage";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { MainPage } from "./pages/dashboard/index";
+import { LoginPage } from "./pages/auth/loginPage";
+import { RegisterPage } from "./pages/auth/registerPage";
 import { AuthWrapper } from "./components/authWrapper";
 import { Titlebar } from "./components/titlebar";
 import { useAuth } from "./hooks/useAuth";
@@ -15,41 +15,46 @@ function App() {
     <>
       <Titlebar />
       <Toaster
-        position="bottom-left"
+        position="bottom-center"
         toastOptions={{
           className:
             "bg-neutral-900 text-white rounded-[10px] pl-[20px] ml-[5px] mb-[5px] h-[44px]",
           duration: 2000,
         }}
       />
-      <Router>
-        <Routes>
-          <Route
-            index
-            element={
-              <AuthWrapper boolean={isAuth} redirectTo="/login">
-                <MainPage />
-              </AuthWrapper>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <AuthWrapper boolean={!isAuth} redirectTo="/">
-                <LoginPage />
-              </AuthWrapper>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <AuthWrapper boolean={!isAuth} redirectTo="/">
-                <RegisterPage />
-              </AuthWrapper>
-            }
-          />
-        </Routes>
-      </Router>
+      <div className="h-[100dvh]">
+        <Router>
+          <Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <AuthWrapper boolean={isAuth} redirectTo="/login">
+                  <MainPage />
+                </AuthWrapper>
+              }
+            >
+              <Route path="/dashboard/import" />
+              <Route path="/dashboard/export" />
+            </Route>
+            <Route
+              path="/login"
+              element={
+                <AuthWrapper boolean={!isAuth} redirectTo="/">
+                  <LoginPage />
+                </AuthWrapper>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <AuthWrapper boolean={!isAuth} redirectTo="/">
+                  <RegisterPage />
+                </AuthWrapper>
+              }
+            />
+          </Routes>
+        </Router>
+      </div>
     </>
   );
 }

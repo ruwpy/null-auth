@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { Icons } from "./icons";
+import { Icons } from "./ui/icons";
 import { appWindow } from "@tauri-apps/api/window";
 
 export const Titlebar = () => {

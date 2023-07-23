@@ -1,5 +1,5 @@
-import { Navigate, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 interface ProtectedRouteProps {
   boolean: boolean;
@@ -11,12 +11,8 @@ export const AuthWrapper = ({ boolean, children, redirectTo }: ProtectedRoutePro
   const { loading } = useAuth();
 
   if (!loading) {
-    if (boolean) {
-      return children;
-    } else {
-      return <Navigate to={redirectTo} />;
-    }
+    if (boolean) return children;
   }
 
-  return <div />;
+  return <Navigate to={redirectTo} />;
 };

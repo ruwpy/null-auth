@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Icons } from "./icons";
+import { Icons } from "./ui/icons";
 import { motion as m, AnimatePresence } from "framer-motion";
 import { ModalDelete } from "./modalDelete";
 import { invoke } from "@tauri-apps/api";
-import { IAccount } from "../types";
-import { Button } from "./button";
+import { IAccount } from "@/types";
+import { Button } from "./ui/button";
 import { toast } from "react-hot-toast";
-import { decryptString } from "../lib/rustFunctions";
-import { useUserStore } from "../store/useUserStore";
+import { decryptString } from "@/lib/rustFunctions";
+import { useUserStore } from "@/store/useUserStore";
 
 export const SingleAccount = ({ account }: { account: IAccount }) => {
   const [code, setCode] = useState("000000");

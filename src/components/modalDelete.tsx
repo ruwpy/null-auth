@@ -1,7 +1,7 @@
-import { db } from "../lib/db";
-import { useAccountsStore } from "../store/useAccountsStore";
-import { useUserStore } from "../store/useUserStore";
-import { Button } from "./button";
+import { db } from "@/lib/db";
+import { useAccountsStore } from "@/store/useAccountsStore";
+import { useUserStore } from "@/store/useUserStore";
+import { Button } from "./ui/button";
 import { Modal, ModalProps } from "./modal";
 import { toast } from "react-hot-toast";
 
