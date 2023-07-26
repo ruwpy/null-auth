@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { useZustandStore } from "@/store/useZustandStore";
 
 interface ModalDeleteProps extends ModalProps {
-  accountSecret: string | undefined;
+  accountSecret: string;
 }
 
 export const ModalDelete = ({
@@ -15,7 +15,9 @@ export const ModalDelete = ({
 }: ModalDeleteProps) => {
   const { deleteAccount } = useZustandStore();
 
-  const deleteHandle = async () => {};
+  const deleteHandle = async () => {
+    deleteAccount(accountSecret);
+  };
 
   return (
     <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>

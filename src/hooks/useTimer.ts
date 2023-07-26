@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 export const useTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(
+    30 - Math.floor((new Date(Date.now()).getTime() / 1000.0) % 30)
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -10,8 +12,6 @@ export const useTimer = () => {
 
     return () => clearInterval(interval);
   }, []);
-
-  console.log(timeLeft);
 
   return { timeLeft };
 };

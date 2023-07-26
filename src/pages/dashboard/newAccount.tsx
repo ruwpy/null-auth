@@ -9,7 +9,7 @@ import { useZustandStore } from "@/store/useZustandStore";
 
 const FormSchema = z.object({
   secret: z.string().min(1, { message: "Required" }),
-  username: z.string().min(1, { message: "Required" }),
+  issuer: z.string().min(1, { message: "Required" }),
   name: z.string().optional(),
 });
 
@@ -25,16 +25,15 @@ export const NewAccountPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (account) => {
-    const B32_REGEX = /^[A-Z2-7]+=*$/;
-    if (B32_REGEX.test(account.secret.toUpperCase())) {
-      const encryptedSecret = await encryptString(account.secret, passphrase);
-
-      await addAccount({
-        username: account.username,
+    await addAccount(
+      {
+        issuer: account.issuer,
         name: account.name,
-        secret: encryptedSecret,
-      });
-    }
+        secret: account.secret,
+      },
+      passphrase
+    );
+
     navigate("/accounts");
   });
 
@@ -53,10 +52,10 @@ export const NewAccountPage = () => {
             {...register("secret")}
           />
           <Input
-            className={errors.username?.message ? "outline-red-500 ring-transparent" : ""}
-            placeholder="Username - Required"
+            className={errors.issuer?.message ? "outline-red-500 ring-transparent" : ""}
+            placeholder="Issuer - Required"
             maxLength={512}
-            {...register("username")}
+            {...register("issuer")}
           />
           <Input placeholder="Issuer" maxLength={512} {...register("name")} />
           <Button className="mt-[10px] w-full self-center">Create</Button>

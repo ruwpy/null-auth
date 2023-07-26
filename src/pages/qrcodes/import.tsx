@@ -6,9 +6,12 @@ import { useScanner } from "@/hooks/useScanner";
 import { Modal } from "@/components/modal";
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
+import { IAccount } from "@/types";
+import { useZustandStore } from "@/store/useZustandStore";
 
 export const ImportPage = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { passphrase, addAccount } = useZustandStore();
   const { hasCamera, scanner, isScanning, startScan, stopScan } = useScanner(
     videoRef.current,
     (res) => console.log(res)
@@ -25,8 +28,13 @@ export const ImportPage = () => {
           alsoTryWithoutScanRegion: true,
         });
 
-        const accounts = await invoke("parse_data_from_uri", { uri: data });
-        console.log(accounts);
+        const accounts = (await invoke("parse_data_from_uri", {
+          uri: data,
+        })) as IAccount[];
+
+        for (const account of accounts) {
+          await addAccount(account, passphrase);
+        }
       }
     } catch (error) {
       console.log(error);

@@ -1,5 +1,5 @@
 export interface IAccount {
   secret: string;
-  username: string;
+  issuer: string;
   name?: string;
 }

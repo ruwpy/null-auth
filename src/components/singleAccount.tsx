@@ -10,17 +10,12 @@ import { decryptString } from "@/lib/rustFunctions";
 import { useZustandStore } from "@/store/useZustandStore";
 import { useTimer } from "@/hooks/useTimer";
 
-export const SingleAccount = ({
-  account,
-  timeLeft,
-}: {
-  account: IAccount;
-  timeLeft: number;
-}) => {
+export const SingleAccount = ({ account }: { account: IAccount }) => {
   const [code, setCode] = useState("000000");
   const [deleteSecretModalOpen, setDeleteSecretModalOpen] = useState(false);
   const [codeHovered, setCodeHovered] = useState(false);
   const { passphrase } = useZustandStore();
+  const { timeLeft } = useTimer();
 
   const getCode = async () => {
     const decryptedSecret = await decryptString(account.secret, passphrase);
@@ -28,20 +23,11 @@ export const SingleAccount = ({
     const code: string = await invoke("generate_totp", {
       secret: decryptedSecret,
     });
-
     setCode(code);
   };
 
   useEffect(() => {
-    let firstRender = false;
-
-    if (!firstRender) {
-      getCode();
-    }
-
     if (timeLeft === 30) getCode();
-
-    firstRender = true;
   }, [timeLeft]);
 
   return (
@@ -65,9 +51,13 @@ export const SingleAccount = ({
             />
             <span className="w-fit">{code}</span>
           </div>
-          <span className="flex flex-col leading-[20px] justify-center">
-            <span className="font-bold">{account.username.toUpperCase()}</span>
-            <span className="text-black/50">{account.name}</span>
+          <span className="flex flex-col leading-[20px] overflow-hidden justify-center">
+            <span className="font-bold text-ellipsis max-w-[100px] whitespace-nowrap">
+              {account.issuer.toUpperCase()}
+            </span>
+            <span className="text-black/50 text-ellipsis w-[100px] whitespace-nowrap">
+              {account.name}
+            </span>
           </span>
         </div>
         <Button
