@@ -7,6 +7,15 @@
   --font-main: "Outfit", sans-serif;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 body {
   font-family: var(--font-main);
   overscroll-behavior: none;

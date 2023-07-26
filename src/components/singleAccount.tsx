@@ -8,8 +8,15 @@ import { Button } from "./ui/button";
 import { toast } from "react-hot-toast";
 import { decryptString } from "@/lib/rustFunctions";
 import { useZustandStore } from "@/store/useZustandStore";
+import { useTimer } from "@/hooks/useTimer";
 
-export const SingleAccount = ({ account }: { account: IAccount }) => {
+export const SingleAccount = ({
+  account,
+  timeLeft,
+}: {
+  account: IAccount;
+  timeLeft: number;
+}) => {
   const [code, setCode] = useState("000000");
   const [deleteSecretModalOpen, setDeleteSecretModalOpen] = useState(false);
   const [codeHovered, setCodeHovered] = useState(false);
@@ -32,14 +39,10 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
       getCode();
     }
 
-    const interval = setInterval(() => {
-      getCode();
-    }, 5000);
+    if (timeLeft === 30) getCode();
 
     firstRender = true;
-
-    return () => clearInterval(interval);
-  }, []);
+  }, [timeLeft]);
 
   return (
     <>
