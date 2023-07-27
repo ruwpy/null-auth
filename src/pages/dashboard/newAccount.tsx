@@ -28,7 +28,7 @@ export const NewAccountPage = () => {
     await addAccount(
       {
         issuer: account.issuer,
-        name: account.name,
+        name: account.name ?? "nullauth",
         secret: account.secret,
       },
       passphrase
@@ -57,7 +57,7 @@ export const NewAccountPage = () => {
             maxLength={512}
             {...register("issuer")}
           />
-          <Input placeholder="Issuer" maxLength={512} {...register("name")} />
+          <Input placeholder="Name" maxLength={512} {...register("name")} />
           <Button className="mt-[10px] w-full self-center">Create</Button>
         </form>
       </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Icons } from "./ui/icons";
 import { motion as m, AnimatePresence } from "framer-motion";
-import { ModalDelete } from "./modalDelete";
+import { ModalDelete } from "./modals/modalDelete";
 import { invoke } from "@tauri-apps/api";
 import { IAccount } from "@/types";
 import { Button } from "./ui/button";
@@ -25,6 +25,10 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
     });
     setCode(code);
   };
+
+  useEffect(() => {
+    getCode();
+  }, []);
 
   useEffect(() => {
     if (timeLeft === 30) getCode();
@@ -56,7 +60,7 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
               {account.issuer.toUpperCase()}
             </span>
             <span className="text-black/50 text-ellipsis w-[100px] whitespace-nowrap">
-              {account.name}
+              {account.name?.split(":")[1]}
             </span>
           </span>
         </div>

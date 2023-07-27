@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Modal, ModalProps } from "./modal";
 import { toast } from "react-hot-toast";
 import { useZustandStore } from "@/store/useZustandStore";
@@ -25,8 +25,11 @@ export const ModalDelete = ({
         className="bg-white w-[300px] p-[20px] flex flex-col items-center text-center rounded-[20px]"
         onClick={(e) => e.stopPropagation()}
       >
-        <h1>Delete account?</h1>
-        <p className="mt-[10px]">You won't be able to undo this</p>
+        <h2>Delete account?</h2>
+        <p className="mt-[10px]">
+          Removing this account will remove your ability to generate codes, make sure to
+          have alternate mechanism for generating codes
+        </p>
         <div className="flex mt-[20px] gap-[10px]">
           <Button variant={"secondary"} onClick={() => setModalOpen(false)}>
             Cancel

@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import QrScanner from "qr-scanner";
 import { useEffect, useRef, useState } from "react";
 import { useScanner } from "@/hooks/useScanner";
-import { Modal } from "@/components/modal";
+import { Modal } from "@/components/modals/modal";
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { IAccount } from "@/types";
 import { useZustandStore } from "@/store/useZustandStore";
+import { encryptString } from "@/lib/rustFunctions";
 
 export const ImportPage = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -28,12 +29,22 @@ export const ImportPage = () => {
           alsoTryWithoutScanRegion: true,
         });
 
-        const accounts = (await invoke("parse_data_from_uri", {
-          uri: data,
-        })) as IAccount[];
+        if (data.startsWith("otpauth-migration://")) {
+          const accounts = (await invoke("parse_data_from_uri", {
+            uri: data,
+          })) as IAccount[];
 
-        for (const account of accounts) {
-          await addAccount(account, passphrase);
+          for (const account of accounts) {
+            await addAccount(account, passphrase);
+          }
+        } else if (data.startsWith("otpauth://")) {
+          const url = new URL(data);
+          const name = url.pathname.split("/")[3];
+          const params = Object.fromEntries(url.searchParams) as {
+            issuer: string;
+            secret: string;
+          };
+          addAccount({ name, ...params }, passphrase);
         }
       }
     } catch (error) {

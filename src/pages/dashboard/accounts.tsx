@@ -14,7 +14,7 @@ export const Accounts = () => {
           style={{ width: `${timeLeft * (100 / 30)}%` }}
         />
       </div>
-      <div className="h-full overflow-y-scroll px-[20px]">
+      <div className="h-full overflow-y-scroll px-[20px] pb-[20px]">
         {accounts &&
           accounts.map((acc) => <SingleAccount key={acc.secret} account={acc} />)}
       </div>

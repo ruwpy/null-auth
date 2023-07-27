@@ -30,6 +30,9 @@ body::-webkit-scrollbar {
 h1 {
   @apply text-[28px] text-center font-[600];
 }
+h2 {
+  @apply text-[24px] text-center font-[600];
+}
 
 .titlebar {
   height: 30px;
