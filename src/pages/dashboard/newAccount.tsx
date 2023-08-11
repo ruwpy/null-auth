@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { useZustandStore } from "@/store/useZustandStore";
 
 const FormSchema = z.object({
-  secret: z.string().min(1, { message: "Required" }),
+  secret: z
+    .string()
+    .min(1, { message: "Required" })
+    .regex(/^[A-Z2-7]+=*$/),
   issuer: z.string().min(1, { message: "Required" }),
   name: z.string().optional(),
 });

@@ -1,30 +1,30 @@
 import { invoke } from "@tauri-apps/api";
-import { Button } from "@/components/ui/button";
 import QrScanner from "qr-scanner";
-import { useEffect, useRef, useState } from "react";
-import { useScanner } from "@/hooks/useScanner";
-import { Modal } from "@/components/modals/modal";
+import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { IAccount } from "@/types";
 import { useZustandStore } from "@/store/useZustandStore";
-import { encryptString } from "@/lib/rustFunctions";
+import { FileUploader } from "react-drag-drop-files";
+import { useNavigate } from "react-router-dom";
+// import { encryptString } from "@/lib/rustFunctions";
+// import { useScanner } from "@/hooks/useScanner";
+// import { Modal } from "@/components/modals/modal";
 
 export const ImportPage = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // const videoRef = useRef<HTMLVideoElement>(null);
+  // const { hasCamera, scanner, isScanning, startScan, stopScan } = useScanner(
+  //   videoRef.current,
+  //   (res) => console.log(res)
+  // );
+
+  const navigate = useNavigate();
+  const inputRef = useRef<ElementRef<"input">>(null);
   const { passphrase, addAccount } = useZustandStore();
-  const { hasCamera, scanner, isScanning, startScan, stopScan } = useScanner(
-    videoRef.current,
-    (res) => console.log(res)
-  );
-  const fileRef = useRef<HTMLInputElement>(null);
-
-  const onUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-
+  const onUpload = async (file: File | null) => {
     try {
-      if (e.target.files) {
-        const { data } = await QrScanner.scanImage(e.target.files[0], {
+      if (file) {
+        const { data } = await QrScanner.scanImage(file, {
           returnDetailedScanResult: true,
           alsoTryWithoutScanRegion: true,
         });
@@ -47,35 +47,42 @@ export const ImportPage = () => {
           addAccount({ name, ...params }, passphrase);
         }
       }
+      navigate("/accounts");
     } catch (error) {
       console.log(error);
     } finally {
-      if (fileRef.current) fileRef.current.value = "";
+      if (inputRef.current) inputRef.current.value = "";
     }
   };
 
   return (
     <div>
-      <div className="flex flex-col gap-[5px] mt-[10px]">
-        <label
-          htmlFor="imageUpload"
-          className="w-full bg-neutral-900 hover:bg-neutral-800 transition-colors cursor-pointer text-white py-[8px] flex justify-center items-center rounded-[10px]"
+      <div className="flex flex-col mt-[80px] gap-[5px] p-[20px]">
+        <FileUploader
+          handleChange={onUpload}
+          name="file"
+          className="w-full aspect-square px-[55px] text-center transition-colors text-black/50 border-[3px] border-dashed border-black/20 flex flex-col gap-[15px] justify-center items-center rounded-[10px]"
         >
-          Scan QR code from image
-        </label>
+          <div className="flex flex-col items-center">
+            <Icons.image width={30} height={30} className="text-[rgb(180,180,180)]" />
+            Drop image with QR code here
+          </div>
+          <label
+            className="bg-neutral-900 hover:bg-neutral-800 text-white cursor-pointer w-fit flex justify-center items-center gap-[10px] px-[15px] disabled:opacity-50 disabled:cursor-not-allowed py-[8px] rounded-[10px] transition-colors"
+            htmlFor="imageUpload"
+          >
+            or click here to select
+          </label>
+        </FileUploader>
         <Input
-          ref={fileRef}
-          onChange={(e) => onUpload(e)}
+          onChange={(e) => onUpload(e.target.files && (e.target.files[0] ?? null))}
           type="file"
           accept="image/*"
           className="hidden"
           id="imageUpload"
         />
-        <Button onClick={() => startScan()} disabled={!hasCamera} className="w-full">
-          Scan QR code from camera
-        </Button>
       </div>
-      <div className="relative rounded-[10px] overflow-hidden">
+      {/* <div className="relative rounded-[10px] overflow-hidden">
         <video
           ref={videoRef}
           className={`w-full h-[200px] object-cover ${
@@ -91,7 +98,7 @@ export const ImportPage = () => {
             <Icons.close />
           </Button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

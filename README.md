@@ -27,12 +27,14 @@ Go to [release page](https://github.com/ruwpy/null-auth/releases)
 
 ## Todo
 
+- [x] support export / import 2FA accounts
+- [x] QR code scanning
+- [x] offline mode
+- [x] accounts backup
+- [ ] QR code import from screen / webcam
 - [ ] automatic updates
-- [ ] accounts sorting
-- [ ] support export / import 2FA accounts
-- [ ] QR code scanning
-- [ ] offline mode
-- [ ] accounts backup
+- [ ] fix drag'n'drop on qr import
+- [ ] add settings
 
 ## License
 

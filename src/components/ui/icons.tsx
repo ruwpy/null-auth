@@ -10,9 +10,11 @@ import {
   List,
   Upload,
   Download,
+  Image,
 } from "lucide-react";
 
 export const Icons = {
+  image: Image,
   import: Download,
   export: Upload,
   list: List,

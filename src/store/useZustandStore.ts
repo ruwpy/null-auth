@@ -32,38 +32,34 @@ export const useZustandStore = create<ZustandStoreProps>()((set) => ({
   },
   addAccount: async (account, passphrase) => {
     const accounts = (await store.get("accounts")) as IAccount[];
+    const encryptedSecret = await encryptString(account.secret, passphrase);
 
-    const B32_REGEX = /^[A-Z2-7]+=*$/;
-    if (B32_REGEX.test(account.secret.toUpperCase())) {
-      const encryptedSecret = await encryptString(account.secret, passphrase);
+    if (accounts && accounts.some((acc) => acc.secret === encryptedSecret)) return;
 
-      if (accounts && accounts.some((acc) => acc.secret === encryptedSecret)) return;
+    set((state) => ({
+      accounts: [
+        ...state.accounts,
+        {
+          ...account,
+          secret: encryptedSecret ?? account.secret,
+        },
+      ],
+    }));
 
-      set((state) => ({
-        accounts: [
-          ...state.accounts,
-          {
-            ...account,
-            secret: encryptedSecret ?? account.secret,
-          },
-        ],
-      }));
-
-      if (accounts)
-        return await store.set("accounts", [
-          ...accounts,
-          {
-            ...account,
-            secret: encryptedSecret ?? account.secret,
-          },
-        ]);
-      await store.set("accounts", [
+    if (accounts)
+      return await store.set("accounts", [
+        ...accounts,
         {
           ...account,
           secret: encryptedSecret ?? account.secret,
         },
       ]);
-    }
+    await store.set("accounts", [
+      {
+        ...account,
+        secret: encryptedSecret ?? account.secret,
+      },
+    ]);
   },
   deleteAccount: async (accountSecret) => {
     set((state) => ({
