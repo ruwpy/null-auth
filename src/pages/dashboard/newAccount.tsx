@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { encryptString } from "@/lib/rustFunctions";
 import { useNavigate } from "react-router-dom";
 import { useZustandStore } from "@/store/useZustandStore";
+import { toast } from "react-hot-toast";
 
 const FormSchema = z.object({
   secret: z
@@ -28,16 +29,20 @@ export const NewAccountPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (account) => {
-    await addAccount(
-      {
-        issuer: account.issuer,
-        name: account.name ?? "nullauth",
-        secret: account.secret,
-      },
-      passphrase
-    );
-
-    navigate("/accounts");
+    try {
+      await addAccount(
+        {
+          issuer: account.issuer,
+          name: account.name ?? "nullauth",
+          secret: account.secret,
+        },
+        passphrase
+      );
+      navigate("/accounts");
+      toast.success("Account was created");
+    } catch (error) {
+      toast.error("Error has occured, try again");
+    }
   });
 
   return (

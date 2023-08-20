@@ -52,13 +52,13 @@ export const Sidebar = () => {
           </m.div>
         </div>
       </div>
-      <div className="flex flex-col justify-end items-center gap-[5px] w-full">
+      {/* <div className="flex flex-col justify-end items-center gap-[5px] w-full">
         <Link to="/settings">
           <Button className=" p-[10px] rounded-[10px]">
             <Icons.settings className="text-white" />
           </Button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

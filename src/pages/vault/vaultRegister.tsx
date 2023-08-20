@@ -33,11 +33,10 @@ export const VaultRegisterPage = () => {
   });
 
   return (
-    <div className="flex flex-col items-center relative mt-[30px] w-full bg-white px-[20px]">
-      <h1>Welcome to null-auth</h1>
-      <p className="text-center">
-        to get start you need to set your passcode, for futher access on this application
-      </p>
+    <div className="flex flex-col items-center relative mt-[100px] w-full bg-white px-[20px]">
+      <img src="/nullauth.svg" alt="null-auth logo" />
+      <h1 className="mt-[10px]">Welcome to null-auth</h1>
+      <p className="text-center">to get started you need to set your passcode</p>
       <form
         onSubmit={onSubmit}
         className="flex flex-col gap-[10px] max-w-[250px] mt-[20px]"
