@@ -31,7 +31,7 @@ Go to [release page](https://github.com/ruwpy/null-auth/releases)
 - [x] QR code scanning
 - [x] offline mode
 - [x] accounts backup
-- [x] fix drag'n'drop on qr import
+- [ ] fix drag'n'drop on qr import
 - [ ] QR code import from screen / webcam
 - [ ] automatic updates
 - [ ] add settings

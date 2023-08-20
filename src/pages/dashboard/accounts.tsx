@@ -6,8 +6,6 @@ import { Timer } from "@/components/timer";
 export const Accounts = () => {
   const { accounts } = useZustandStore();
 
-  console.log(accounts);
-
   return accounts.length ? (
     <>
       <Timer />
