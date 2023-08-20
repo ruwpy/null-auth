@@ -18,17 +18,17 @@
         "open": true
       },
       "window": {
-        "all": false,
-        "close": true,
-        "hide": true,
-        "minimize": true,
-        "startDragging": true
+        "all": true
       }
     },
     "bundle": {
       "active": true,
+      "category": "Security",
+      "copyright": "GPL-3.0",
       "targets": "all",
-      "identifier": "null-auth",
+      "identifier": "com.ruwpy.nullauth",
+      "publisher": "ruwpy",
+      "shortDescription": "TOTP auth application",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -46,8 +46,9 @@
         "fullscreen": false,
         "resizable": false,
         "title": "null-auth",
-        "width": 350,
-        "height": 600
+        "width": 400,
+        "height": 600,
+        "titleBarStyle": "Visible"
       }
     ],
     "systemTray": {

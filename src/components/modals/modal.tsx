@@ -1,10 +1,4 @@
-import {
-  AnimatePresence,
-  MotionProps,
-  Variants,
-  delay,
-  motion as m,
-} from "framer-motion";
+import { MotionProps, Variants, motion as m } from "framer-motion";
 import { SetStateAction } from "react";
 import { createPortal } from "react-dom";
 

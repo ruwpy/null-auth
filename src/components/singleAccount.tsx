@@ -1,48 +1,38 @@
 import { useEffect, useState } from "react";
-import { Icons } from "./icons";
+import { Icons } from "./ui/icons";
 import { motion as m, AnimatePresence } from "framer-motion";
-import { ModalDelete } from "./modalDelete";
+import { ModalDelete } from "./modals/modalDelete";
 import { invoke } from "@tauri-apps/api";
-import { IAccount } from "../types";
-import { Button } from "./button";
+import { IAccount } from "@/types";
+import { Button } from "./ui/button";
 import { toast } from "react-hot-toast";
-import { decryptString } from "../lib/rustFunctions";
-import { useUserStore } from "../store/useUserStore";
+import { decryptString } from "@/lib/rustFunctions";
+import { useZustandStore } from "@/store/useZustandStore";
+import { useTimer } from "@/hooks/useTimer";
 
 export const SingleAccount = ({ account }: { account: IAccount }) => {
   const [code, setCode] = useState("000000");
   const [deleteSecretModalOpen, setDeleteSecretModalOpen] = useState(false);
   const [codeHovered, setCodeHovered] = useState(false);
-  const { user } = useUserStore();
+  const { passphrase } = useZustandStore();
+  const { timeLeft } = useTimer();
 
   const getCode = async () => {
-    const decryptedSecret = await decryptString(
-      account.secret,
-      `${user?.email!.split("@")[0]}-pass`
-    );
+    const decryptedSecret = await decryptString(account.secret, passphrase);
 
     const code: string = await invoke("generate_totp", {
       secret: decryptedSecret,
     });
-
     setCode(code);
   };
 
   useEffect(() => {
-    let firstRender = false;
-
-    if (!firstRender) {
-      getCode();
-    }
-
-    const interval = setInterval(() => {
-      getCode();
-    }, 5000);
-
-    firstRender = true;
-
-    return () => clearInterval(interval);
+    getCode();
   }, []);
+
+  useEffect(() => {
+    if (timeLeft === 30) getCode();
+  }, [timeLeft]);
 
   return (
     <>
@@ -65,9 +55,13 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
             />
             <span className="w-fit">{code}</span>
           </div>
-          <span className="flex flex-col leading-[20px] justify-center">
-            <span className="font-bold">{account.issuer.toUpperCase()}</span>
-            <span className="text-black/50">{account.username}</span>
+          <span className="flex flex-col leading-[20px] overflow-hidden justify-center">
+            <span className="font-bold text-ellipsis max-w-[100px] whitespace-nowrap">
+              {account.issuer.toUpperCase()}
+            </span>
+            <span className="text-black/50 text-ellipsis w-[100px] whitespace-nowrap">
+              {account.name?.split(":")[1]}
+            </span>
           </span>
         </div>
         <Button
@@ -80,7 +74,7 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
       <AnimatePresence mode="wait">
         {deleteSecretModalOpen && (
           <ModalDelete
-            idToDelete={account.id}
+            accountSecret={account.secret}
             modalOpen={deleteSecretModalOpen}
             setModalOpen={setDeleteSecretModalOpen}
           />

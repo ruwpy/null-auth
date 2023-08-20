@@ -4,6 +4,7 @@
 use tauri_plugin_store;
 
 mod encryption;
+mod parse_uri;
 mod totp;
 
 fn main() {
@@ -13,7 +14,8 @@ fn main() {
             totp::generate_totp,
             encryption::hash_string,
             encryption::encrypt_string,
-            encryption::decrypt_string
+            encryption::decrypt_string,
+            parse_uri::parse_data_from_uri
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

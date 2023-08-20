@@ -4,9 +4,20 @@
 
 :root {
   --font-code: "Source Code Pro", monospace;
+  --font-main: "Outfit", sans-serif;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body {
+  font-family: var(--font-main);
   overscroll-behavior: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -14,6 +25,13 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+h1 {
+  @apply text-[28px] text-center font-[600];
+}
+h2 {
+  @apply text-[24px] text-center font-[600];
 }
 
 .titlebar {
@@ -27,6 +45,7 @@ body::-webkit-scrollbar {
   left: 0;
   right: 0;
 }
+
 .titlebar-button {
   display: inline-flex;
   justify-content: center;
@@ -34,6 +53,7 @@ body::-webkit-scrollbar {
   width: 30px;
   height: 30px;
 }
+
 .titlebar-button:hover {
   background: #5bbec3;
 }
