@@ -1,19 +1,16 @@
 import { useZustandStore } from "@/store/useZustandStore";
 import { SingleAccount } from "../../components/singleAccount";
 import { useTimer } from "@/hooks/useTimer";
+import { Timer } from "@/components/timer";
 
 export const Accounts = () => {
   const { accounts } = useZustandStore();
-  const { timeLeft } = useTimer();
+
+  console.log(accounts);
 
   return accounts.length ? (
     <>
-      <div className="w-full">
-        <div
-          className="h-[10px] bg-neutral-900 transition-all"
-          style={{ width: `${timeLeft * (100 / 30)}%` }}
-        />
-      </div>
+      <Timer />
       <div className="h-full overflow-y-scroll px-[20px] pb-[20px]">
         {accounts &&
           accounts.map((acc) => <SingleAccount key={acc.secret} account={acc} />)}

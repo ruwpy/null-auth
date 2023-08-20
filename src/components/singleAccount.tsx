@@ -24,15 +24,16 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
       secret: decryptedSecret,
     });
     setCode(code);
+    let timeout: NodeJS.Timeout | null = null;
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => getCode(), 30000);
   };
 
   useEffect(() => {
     getCode();
-  }, []);
 
-  useEffect(() => {
-    if (timeLeft === 30) getCode();
-  }, [timeLeft]);
+    setTimeout(() => getCode(), Number(`${timeLeft}000`));
+  }, []);
 
   return (
     <>

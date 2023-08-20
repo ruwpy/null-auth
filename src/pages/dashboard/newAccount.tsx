@@ -33,7 +33,9 @@ export const NewAccountPage = () => {
       await addAccount(
         {
           issuer: account.issuer,
-          name: account.name ?? "nullauth",
+          name: account.name
+            ? `${account.issuer}:${account.name}`
+            : `${account.issuer}:nullauth`,
           secret: account.secret,
         },
         passphrase
