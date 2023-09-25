@@ -14,15 +14,23 @@ function App() {
     <>
       <Titlebar />
       <DataProvider>
+        <Toaster
+          position="bottom-center"
+          // "bg-neutral-900 text-white rounded-[10px] pl-[20px] ml-[5px] mb-[5px] h-[44px]"
+          toastOptions={{
+            style: {
+              background: "rgb(23,23,23)",
+              color: "white",
+              borderRadius: "10px",
+              paddingLeft: "20px",
+              marginLeft: "5px",
+              marginBottom: "5px",
+              height: "44px",
+            },
+            duration: 2000,
+          }}
+        />
         <VaultWrapper>
-          <Toaster
-            position="bottom-center"
-            toastOptions={{
-              className:
-                "bg-neutral-900 text-white rounded-[10px] pl-[20px] ml-[5px] mb-[5px] h-[44px]",
-              duration: 2000,
-            }}
-          />
           <div className="h-[100dvh]">
             <Router>
               <Routes>

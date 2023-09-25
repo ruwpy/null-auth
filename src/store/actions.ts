@@ -1,4 +1,4 @@
-import { encryptString } from "@/lib/rustFunctions";
+import { encryptString, verifyHash } from "@/lib/rustFunctions";
 import { store } from ".";
 import { IAccount } from "@/types";
 import { useContextProvider } from "@/hooks/useContextProvider";
