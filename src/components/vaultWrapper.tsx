@@ -3,7 +3,7 @@ import { VaultRegisterPage } from "@/pages/vault/vaultRegister";
 import { VaultAuthenticatePage } from "@/pages/vault/vaultAuthenticate";
 import { useContextProvider } from "@/hooks/useContextProvider";
 
-export const VaultWrapper = ({ children }: { children: React.ReactNode }) => {
+export const VaultWrapper = ({ children }: { children: JSX.Element }) => {
   const [pageToDisplay, setPageToDisplay] = useState<
     "authenticated" | "unregistered" | "unauthenticated"
   >("unregistered");

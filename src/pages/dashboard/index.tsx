@@ -10,7 +10,7 @@ export const MainPage = () => {
   return (
     <div className="flex h-full">
       <Sidebar />
-      <div className="relative mt-[30px] w-full bg-white">
+      <div className="relative w-full bg-white">
         <Outlet />
       </div>
     </div>

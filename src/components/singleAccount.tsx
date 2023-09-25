@@ -17,8 +17,6 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
   const { timeLeft } = useTimer();
   const { passphrase } = useContextProvider();
 
-  console.log(account);
-
   const getCode = async () => {
     const decryptedSecret = await decryptString(account.secret, passphrase);
 

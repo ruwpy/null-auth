@@ -13,7 +13,7 @@ export const Sidebar = () => {
   const [qrOpen, setQrOpen] = useState(false);
 
   return (
-    <div className="flex flex-col justify-between px-[6px] py-[10px] border-r border-black/10 mt-[30px]">
+    <div className="flex flex-col justify-between px-[6px] py-[10px] border-r border-black/10">
       <div className="flex flex-col items-center gap-[5px] w-full">
         <Link to="/accounts">
           <Button className=" p-[10px] rounded-[10px]">

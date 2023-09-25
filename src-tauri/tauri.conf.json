@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "null-auth",
-    "version": "0.1.1"
+    "version": "0.1.2"
   },
   "tauri": {
     "allowlist": {
@@ -28,7 +28,7 @@
       "targets": "all",
       "identifier": "com.ruwpy.nullauth",
       "publisher": "ruwpy",
-      "shortDescription": "TOTP auth application",
+      "shortDescription": "null-auth",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -42,7 +42,6 @@
     },
     "windows": [
       {
-        "decorations": false,
         "fullscreen": false,
         "resizable": false,
         "title": "null-auth",

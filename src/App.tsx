@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { MainPage } from "./pages/dashboard/index";
-import { Titlebar } from "./components/titlebar";
 import { Toaster } from "react-hot-toast";
 import { NewAccountPage } from "./pages/dashboard/newAccount";
 import { Accounts } from "./pages/dashboard/accounts";
@@ -12,11 +11,9 @@ import { DataProvider } from "./components/dataProvider";
 function App() {
   return (
     <>
-      <Titlebar />
       <DataProvider>
         <Toaster
           position="bottom-center"
-          // "bg-neutral-900 text-white rounded-[10px] pl-[20px] ml-[5px] mb-[5px] h-[44px]"
           toastOptions={{
             style: {
               background: "rgb(23,23,23)",
