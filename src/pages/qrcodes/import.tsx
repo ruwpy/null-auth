@@ -1,13 +1,12 @@
 import { invoke } from "@tauri-apps/api";
 import QrScanner from "qr-scanner";
-import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
-import { Icons } from "@/components/ui/icons";
+import { ElementRef, useRef } from "react";
 import { Input } from "@/components/ui/input";
-import { IAccount } from "@/types";
-import { useZustandStore } from "@/store/useZustandStore";
 import { useNavigate } from "react-router-dom";
-import { useDropzone } from "react-dropzone";
 import { toast } from "react-hot-toast";
+import { useContextProvider } from "@/hooks/useContextProvider";
+import { addAccount } from "@/store/actions";
+import { IAccount } from "@/types";
 // import { encryptString } from "@/lib/rustFunctions";
 // import { useScanner } from "@/hooks/useScanner";
 // import { Modal } from "@/components/modals/modal";
@@ -22,7 +21,7 @@ export const ImportPage = () => {
   // const {getInputProps,getRootProps,} = useDropzone()
   const navigate = useNavigate();
   const inputRef = useRef<ElementRef<"input">>(null);
-  const { passphrase, addAccount } = useZustandStore();
+  const { passphrase, setAccounts } = useContextProvider();
   const onUpload = async (file: File | null) => {
     try {
       let QRCodesImported: number = 0;
@@ -38,8 +37,14 @@ export const ImportPage = () => {
           })) as IAccount[];
 
           for (const account of accounts) {
-            await addAccount(account, passphrase);
-            QRCodesImported += 1;
+            try {
+              const secret = await addAccount({ account, passphrase });
+              if (secret) setAccounts((prev) => [...prev, { ...account, secret }]);
+
+              QRCodesImported += 1;
+            } catch (error) {
+              console.log(error);
+            }
           }
         } else if (data.startsWith("otpauth://")) {
           const url = new URL(data);
@@ -48,7 +53,9 @@ export const ImportPage = () => {
             issuer: string;
             secret: string;
           };
-          addAccount({ name, ...params }, passphrase);
+          const secret = await addAccount({ account: { name, ...params }, passphrase });
+          if (secret)
+            setAccounts((prev) => [...prev, { name, secret, issuer: params.issuer }]);
         }
       }
       navigate("/accounts");

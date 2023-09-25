@@ -11,9 +11,11 @@ import {
   Upload,
   Download,
   Image,
+  Loader,
 } from "lucide-react";
 
 export const Icons = {
+  loading: Loader,
   image: Image,
   import: Download,
   export: Upload,

@@ -5,14 +5,15 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { encryptString } from "@/lib/rustFunctions";
 import { useNavigate } from "react-router-dom";
-import { useZustandStore } from "@/store/useZustandStore";
 import { toast } from "react-hot-toast";
+import { useContextProvider } from "@/hooks/useContextProvider";
+import { addAccount } from "@/store/actions";
 
 const FormSchema = z.object({
   secret: z
     .string()
     .min(1, { message: "Required" })
-    .regex(/^[A-Z2-7]+=*$/),
+    .regex(/^[A-Z2-7]+=*$/i),
   issuer: z.string().min(1, { message: "Required" }),
   name: z.string().optional(),
 });
@@ -20,7 +21,7 @@ const FormSchema = z.object({
 type FormDataType = z.infer<typeof FormSchema>;
 
 export const NewAccountPage = () => {
-  const { passphrase, addAccount } = useZustandStore();
+  const { passphrase, setAccounts } = useContextProvider();
   const {
     register,
     handleSubmit,
@@ -30,16 +31,20 @@ export const NewAccountPage = () => {
 
   const onSubmit = handleSubmit(async (account) => {
     try {
-      await addAccount(
-        {
-          issuer: account.issuer,
-          name: account.name
-            ? `${account.issuer}:${account.name}`
-            : `${account.issuer}:nullauth`,
-          secret: account.secret,
-        },
-        passphrase
-      );
+      const accountToAdd = {
+        issuer: account.issuer,
+        name: account.name
+          ? `${account.issuer}:${account.name}`
+          : `${account.issuer}:nullauth`,
+        secret: account.secret.toUpperCase(),
+      };
+
+      const secret = await addAccount({
+        account: accountToAdd,
+        passphrase,
+      });
+      if (secret) setAccounts((prev) => [...prev, { ...accountToAdd, secret }]);
+
       navigate("/accounts");
       toast.success("Account was created");
     } catch (error) {

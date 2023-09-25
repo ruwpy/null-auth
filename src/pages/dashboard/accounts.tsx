@@ -1,10 +1,9 @@
-import { useZustandStore } from "@/store/useZustandStore";
+import { useContextProvider } from "@/hooks/useContextProvider";
 import { SingleAccount } from "../../components/singleAccount";
-import { useTimer } from "@/hooks/useTimer";
 import { Timer } from "@/components/timer";
 
 export const Accounts = () => {
-  const { accounts } = useZustandStore();
+  const { accounts } = useContextProvider();
 
   return accounts.length ? (
     <>

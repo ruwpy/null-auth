@@ -1,7 +1,7 @@
 import { ModalExport } from "@/components/modals/modalExport";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useZustandStore } from "@/store/useZustandStore";
+import { useContextProvider } from "@/hooks/useContextProvider";
 import { IAccount } from "@/types";
 import { useState } from "react";
 import QRCode from "react-qr-code";
@@ -9,7 +9,7 @@ import QRCode from "react-qr-code";
 export const ExportPage = () => {
   const [exportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
-  const { accounts } = useZustandStore();
+  const { accounts } = useContextProvider();
 
   const selectAccount = (account: IAccount) => {
     if (selectedAccounts.some((acc) => acc.secret === account.secret))

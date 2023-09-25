@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "null-auth",
-    "version": "1.0.0"
+    "version": "0.1.1"
   },
   "tauri": {
     "allowlist": {
@@ -23,7 +23,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "Security",
+      "category": "Utility",
       "copyright": "GPL-3.0",
       "targets": "all",
       "identifier": "com.ruwpy.nullauth",

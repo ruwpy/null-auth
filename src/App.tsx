@@ -6,27 +6,24 @@ import { NewAccountPage } from "./pages/dashboard/newAccount";
 import { Accounts } from "./pages/dashboard/accounts";
 import { ExportPage } from "./pages/qrcodes/export";
 import { ImportPage } from "./pages/qrcodes/import";
-import { VaultRegisterPage } from "./pages/vault/vaultRegister";
-import { useZustandStore } from "./store/useZustandStore";
 import { VaultWrapper } from "./components/vaultWrapper";
+import { DataProvider } from "./components/dataProvider";
 
 function App() {
-  const { passphrase } = useZustandStore();
-
   return (
     <>
       <Titlebar />
-      <VaultWrapper>
-        <Toaster
-          position="bottom-center"
-          toastOptions={{
-            className:
-              "bg-neutral-900 text-white rounded-[10px] pl-[20px] ml-[5px] mb-[5px] h-[44px]",
-            duration: 2000,
-          }}
-        />
-        <div className="h-[100dvh]">
-          {passphrase ? (
+      <DataProvider>
+        <VaultWrapper>
+          <Toaster
+            position="bottom-center"
+            toastOptions={{
+              className:
+                "bg-neutral-900 text-white rounded-[10px] pl-[20px] ml-[5px] mb-[5px] h-[44px]",
+              duration: 2000,
+            }}
+          />
+          <div className="h-[100dvh]">
             <Router>
               <Routes>
                 <Route path="/" element={<MainPage />}>
@@ -38,11 +35,9 @@ function App() {
                 </Route>
               </Routes>
             </Router>
-          ) : (
-            <VaultRegisterPage />
-          )}
-        </div>
-      </VaultWrapper>
+          </div>
+        </VaultWrapper>
+      </DataProvider>
     </>
   );
 }
