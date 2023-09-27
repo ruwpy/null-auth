@@ -14,8 +14,12 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
   const [code, setCode] = useState("000000");
   const [deleteSecretModalOpen, setDeleteSecretModalOpen] = useState(false);
   const [codeHovered, setCodeHovered] = useState(false);
-  const { timeLeft } = useTimer();
   const { passphrase } = useContextProvider();
+
+  const accountIssuer = account.issuer.toUpperCase();
+  const accountName = account.name?.split(":")[1];
+
+  console.log("refreshed!");
 
   const getCode = async () => {
     const decryptedSecret = await decryptString(account.secret, passphrase);
@@ -32,7 +36,7 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
   useEffect(() => {
     getCode();
 
-    setTimeout(() => getCode(), Number(`${timeLeft}000`));
+    setTimeout(() => getCode(), Number(`${30 - (new Date().getSeconds() % 30)}000`));
   }, []);
 
   return (
@@ -57,11 +61,17 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
             <span className="w-fit">{code}</span>
           </div>
           <span className="flex flex-col leading-[20px] overflow-hidden justify-center">
-            <span className="font-bold text-ellipsis max-w-[100px] whitespace-nowrap">
-              {account.issuer.toUpperCase()}
+            <span
+              title={accountIssuer}
+              className="font-bold text-ellipsis max-w-[100px] whitespace-nowrap overflow-hidden"
+            >
+              {accountIssuer}
             </span>
-            <span className="text-black/50 text-ellipsis w-[100px] whitespace-nowrap">
-              {account.name?.split(":")[1]}
+            <span
+              title={accountName}
+              className="text-black/50 text-ellipsis w-[100px] whitespace-nowrap overflow-hidden"
+            >
+              {accountName}
             </span>
           </span>
         </div>
