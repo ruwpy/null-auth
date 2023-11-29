@@ -6,7 +6,7 @@ import { useContextProvider } from "@/hooks/useContextProvider";
 export const VaultWrapper = ({ children }: { children: JSX.Element }) => {
   const [pageToDisplay, setPageToDisplay] = useState<
     "authenticated" | "unregistered" | "unauthenticated"
-  >("unregistered");
+  >("authenticated");
   const { passphrase, isAuthenticated } = useContextProvider();
 
   const pages = {
@@ -20,5 +20,5 @@ export const VaultWrapper = ({ children }: { children: JSX.Element }) => {
     if (passphrase && isAuthenticated) setPageToDisplay("authenticated");
   }, [passphrase, isAuthenticated]);
 
-  return pages[pageToDisplay];
+  return pages["authenticated"];
 };

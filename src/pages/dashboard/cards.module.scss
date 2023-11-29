@@ -1,0 +1,21 @@
+.container {
+  padding: 15px 20px;
+}
+
+.topPart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.cardGroupContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}

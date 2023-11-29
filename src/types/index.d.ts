@@ -1,9 +1,18 @@
 import { SetStateAction } from "react";
 
 interface IAccount {
+  id: string;
   secret: string;
   issuer: string;
   name?: string;
+}
+
+interface ICard {
+  id: string;
+  cardNumber: number;
+  cardHolder: string;
+  date: Date;
+  cvv: number;
 }
 
 interface IAppStoreData {

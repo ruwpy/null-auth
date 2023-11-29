@@ -1,64 +1,61 @@
-import { useState } from "react";
 import { Button } from "./ui/button";
 import { Icons } from "./ui/icons";
-import { Link } from "react-router-dom";
-import { Variants, motion as m } from "framer-motion";
-
-const sidebarImportExportAnimation: Variants = {
-  initial: { maxHeight: "0px" },
-  animate: { maxHeight: "95px" },
-};
+import { Link, useLocation } from "react-router-dom";
+import styles from "./sidebar.module.scss";
+import { cn } from "@/lib/utils";
 
 export const Sidebar = () => {
-  const [qrOpen, setQrOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  const LinkClassname = (path: string) => (path === pathname ? styles.active : "");
 
   return (
-    <div className="flex flex-col justify-between px-[6px] py-[10px] border-r border-black/10">
-      <div className="flex flex-col items-center gap-[5px] w-full">
-        <Link to="/accounts">
-          <Button className=" p-[10px] rounded-[10px]">
-            <Icons.list className="text-white" />
+    <div className={styles.sidebar}>
+      <div className={styles.buttonContainer}>
+        <Link
+          draggable={false}
+          className={cn(styles.dashboardLink, LinkClassname("/passwords"))}
+          to="/passwords"
+        >
+          <Button variant={"dashboardLink"}>
+            <Icons.passwords width={35} height={35} className={styles.svgIcon} />
           </Button>
         </Link>
-        <Link to="/newaccount">
-          <Button className=" p-[10px] rounded-[10px]">
-            <Icons.plus className="text-white" />
+        <Link
+          draggable={false}
+          className={cn(styles.dashboardLink, LinkClassname("/cards"))}
+          to="/cards"
+        >
+          <Button variant={"dashboardLink"}>
+            <Icons.cards
+              width={35}
+              height={35}
+              color="black"
+              className={styles.svgIcon}
+            />
           </Button>
         </Link>
-        <div className="relative bg-neutral-900 rounded-[10px]">
-          <Button
-            onClick={() => setQrOpen((prev) => !prev)}
-            className=" p-[10px] rounded-[10px]"
-          >
-            <Icons.qr className="text-white" />
+        <Link
+          draggable={false}
+          className={cn(styles.dashboardLink, LinkClassname("/otp"))}
+          to="/otp"
+        >
+          <Button variant={"dashboardLink"}>
+            <Icons.otp width={35} height={35} className={styles.svgIcon} />
           </Button>
-          <m.div
-            variants={sidebarImportExportAnimation}
-            animate={qrOpen ? "animate" : "initial"}
-            initial="initial"
-            transition={{ duration: 0.15 }}
-            className="overflow-hidden rounded-[10px] flex flex-col"
-          >
-            <Link to="/import">
-              <Button className="p-[10px] mt-[5px] rounded-[10px]">
-                <Icons.import className="text-white" />
-              </Button>
-            </Link>
-            <Link to="/export">
-              <Button className="p-[10px] mt-[5px] rounded-[10px]">
-                <Icons.export className="text-white" />
-              </Button>
-            </Link>
-          </m.div>
-        </div>
+        </Link>
       </div>
-      {/* <div className="flex flex-col justify-end items-center gap-[5px] w-full">
-        <Link to="/settings">
-          <Button className=" p-[10px] rounded-[10px]">
-            <Icons.settings className="text-white" />
+      <div className={styles.buttonContainer}>
+        <Link
+          draggable={false}
+          className={cn(styles.dashboardLink, LinkClassname("/settings"))}
+          to="/settings"
+        >
+          <Button variant={"dashboardLink"}>
+            <Icons.settings width={35} height={35} className={styles.svgIcon} />
           </Button>
         </Link>
-      </div> */}
+      </div>
     </div>
   );
 };

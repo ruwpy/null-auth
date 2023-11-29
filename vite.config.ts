@@ -5,6 +5,11 @@ import tsConfigPathsPlugin from "vite-tsconfig-paths";
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
   plugins: [react(), tsConfigPathsPlugin()],
+  css: {
+    modules: {
+      localsConvention: "camelCase",
+    },
+  },
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   // prevent vite from obscuring rust errors
