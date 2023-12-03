@@ -9,10 +9,31 @@ interface IAccount {
 
 interface ICard {
   id: string;
-  cardNumber: number;
+  cardNumber: string;
   cardHolder: string;
   date: Date;
   cvv: number;
+}
+
+type TCardType =
+  | "amex"
+  | "diners_club_carte_blanche"
+  | "diners_club_international"
+  | "jcb"
+  | "laser"
+  | "visa_electron"
+  | "visa"
+  | "mastercard"
+  | "discover"
+  | "dankort"
+  | "maestro"
+  | "uatp"
+  | "mir";
+
+interface ICardType {
+  name: TCardType;
+  validLength: number[];
+  range: number[];
 }
 
 interface IAppStoreData {
