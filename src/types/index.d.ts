@@ -8,6 +8,7 @@ interface IAccount {
 }
 
 interface ICard {
+  issuerBank: TCardType;
   id: string;
   cardNumber: string;
   cardHolder: string;

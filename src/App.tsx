@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { MainPage } from "./pages/dashboard/index";
 import { Toaster } from "react-hot-toast";
-import { NewAccountPage } from "./pages/dashboard/newAccount";
-import { Accounts } from "./pages/dashboard/accounts";
-import { ExportPage } from "./pages/qrcodes/export";
-import { ImportPage } from "./pages/qrcodes/import";
 import { VaultWrapper } from "./components/vaultWrapper";
 import { DataProvider } from "./components/dataProvider";
+import { PasswordsPage } from "./pages/dashboard/passwords";
+import { CardsPage } from "./pages/dashboard/cards";
+import { OtpPage } from "./pages/dashboard/otp";
+import styles from "./App.module.scss";
+import { SettingsPage } from "./pages/dashboard/settings";
 
 function App() {
   return (
@@ -28,15 +29,14 @@ function App() {
           }}
         />
         <VaultWrapper>
-          <div className="h-[100dvh]">
+          <div className={styles.routerContainer}>
             <Router>
               <Routes>
                 <Route path="/" element={<MainPage />}>
-                  <Route path="/accounts" element={<Accounts />} />
-                  <Route path="/newaccount" element={<NewAccountPage />} />
-                  <Route path="/export" element={<ExportPage />} />
-                  <Route path="/import" element={<ImportPage />} />
-                  <Route path="/settings" element={<Accounts />} />
+                  <Route path="passwords" element={<PasswordsPage />} />
+                  <Route path="cards" element={<CardsPage />} />
+                  <Route path="otp" element={<OtpPage />} />
+                  <Route path="settings" element={<SettingsPage />} />
                 </Route>
               </Routes>
             </Router>

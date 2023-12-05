@@ -94,12 +94,11 @@ const cardTypes: ICardType[] = [
   },
 ];
 
+// TODO: I feel like this function could be optimized
 export const validateCard = (cardNumber: string) => {
-  const number = Number(cardNumber);
-
   for (const cardType of cardTypes) {
     for (const num of cardType.range) {
-      if (number.toString().startsWith(num.toString()))
+      if (cardNumber.startsWith(num.toString()))
         return { name: cardType.name, length: cardType.validLength };
     }
   }

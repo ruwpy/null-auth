@@ -2,7 +2,7 @@
   "build": {
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
-    "devPath": "http://localhost:1420",
+    "devPath": "http://localhost:1421",
     "distDir": "../dist",
     "withGlobalTauri": false
   },
@@ -45,8 +45,8 @@
         "fullscreen": false,
         "resizable": false,
         "title": "null-auth",
-        "width": 400,
-        "height": 600,
+        "width": 785,
+        "height": 500,
         "titleBarStyle": "Visible"
       }
     ],
