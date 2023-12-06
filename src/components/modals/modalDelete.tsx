@@ -1,7 +1,8 @@
-import { deleteAccount } from "@/store/actions";
+import { db } from "@/lib/db";
 import { Button } from "../ui/button";
 import { Modal, ModalProps } from "./modal";
-import { useContextProvider } from "@/hooks/useContextProvider";
+import { toast } from "react-hot-toast";
+import { useZustandStore } from "@/store/useZustandStore";
 
 interface ModalDeleteProps extends ModalProps {
   accountSecret: string;
@@ -12,15 +13,10 @@ export const ModalDelete = ({
   modalOpen,
   setModalOpen,
 }: ModalDeleteProps) => {
-  const { accounts, setAccounts } = useContextProvider();
+  const { deleteAccount } = useZustandStore();
 
   const deleteHandle = async () => {
-    try {
-      deleteAccount({ accountSecret });
-      setAccounts(accounts.filter((acc) => acc.secret !== accountSecret));
-    } catch (error) {
-      console.log(error);
-    }
+    deleteAccount(accountSecret);
   };
 
   return (

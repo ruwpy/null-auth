@@ -1,24 +1,25 @@
+import { useZustandStore } from "@/store/useZustandStore";
 import { useEffect, useState } from "react";
-import { VaultRegisterPage } from "@/pages/vault/vaultRegister";
-import { VaultAuthenticatePage } from "@/pages/vault/vaultAuthenticate";
-import { useContextProvider } from "@/hooks/useContextProvider";
 
-export const VaultWrapper = ({ children }: { children: JSX.Element }) => {
-  const [pageToDisplay, setPageToDisplay] = useState<
-    "authenticated" | "unregistered" | "unauthenticated"
-  >("authenticated");
-  const { passphrase, isAuthenticated } = useContextProvider();
-
-  const pages = {
-    authenticated: children,
-    unregistered: <VaultRegisterPage />,
-    unauthenticated: <VaultAuthenticatePage />,
-  };
+export const VaultWrapper = ({ children }: { children: React.ReactNode }) => {
+  const { getAccounts, getPassphrase } = useZustandStore();
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (passphrase) setPageToDisplay("unauthenticated");
-    if (passphrase && isAuthenticated) setPageToDisplay("authenticated");
-  }, [passphrase, isAuthenticated]);
+    const getData = async () => {
+      try {
+        setLoading(true);
+        await getAccounts();
+        await getPassphrase();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  return pages["authenticated"];
+    getData();
+  }, []);
+
+  return isLoading ? <div>Loading</div> : <div>{children}</div>;
 };

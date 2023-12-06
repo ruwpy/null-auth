@@ -3,23 +3,19 @@ import { Icons } from "./ui/icons";
 import { motion as m, AnimatePresence } from "framer-motion";
 import { ModalDelete } from "./modals/modalDelete";
 import { invoke } from "@tauri-apps/api";
+import { IAccount } from "@/types";
 import { Button } from "./ui/button";
 import { toast } from "react-hot-toast";
 import { decryptString } from "@/lib/rustFunctions";
+import { useZustandStore } from "@/store/useZustandStore";
 import { useTimer } from "@/hooks/useTimer";
-import { useContextProvider } from "@/hooks/useContextProvider";
-import { IAccount } from "@/types";
 
 export const SingleAccount = ({ account }: { account: IAccount }) => {
   const [code, setCode] = useState("000000");
   const [deleteSecretModalOpen, setDeleteSecretModalOpen] = useState(false);
   const [codeHovered, setCodeHovered] = useState(false);
-  const { passphrase } = useContextProvider();
-
-  const accountIssuer = account.issuer.toUpperCase();
-  const accountName = account.name?.split(":")[1];
-
-  console.log("refreshed!");
+  const { passphrase } = useZustandStore();
+  const { timeLeft } = useTimer();
 
   const getCode = async () => {
     const decryptedSecret = await decryptString(account.secret, passphrase);
@@ -36,7 +32,7 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
   useEffect(() => {
     getCode();
 
-    setTimeout(() => getCode(), Number(`${30 - (new Date().getSeconds() % 30)}000`));
+    setTimeout(() => getCode(), Number(`${timeLeft}000`));
   }, []);
 
   return (
@@ -61,17 +57,11 @@ export const SingleAccount = ({ account }: { account: IAccount }) => {
             <span className="w-fit">{code}</span>
           </div>
           <span className="flex flex-col leading-[20px] overflow-hidden justify-center">
-            <span
-              title={accountIssuer}
-              className="font-bold text-ellipsis max-w-[100px] whitespace-nowrap overflow-hidden"
-            >
-              {accountIssuer}
+            <span className="font-bold text-ellipsis max-w-[100px] whitespace-nowrap">
+              {account.issuer.toUpperCase()}
             </span>
-            <span
-              title={accountName}
-              className="text-black/50 text-ellipsis w-[100px] whitespace-nowrap overflow-hidden"
-            >
-              {accountName}
+            <span className="text-black/50 text-ellipsis w-[100px] whitespace-nowrap">
+              {account.name?.split(":")[1]}
             </span>
           </span>
         </div>
