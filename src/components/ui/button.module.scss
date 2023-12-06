@@ -1,0 +1,50 @@
+.button {
+  font-family: inherit;
+  border: none;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  border-radius: 10px;
+  transition: background 100ms, color 100ms, opacity 100ms;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: inherit;
+  height: fit-content;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.primary {
+    background: var(--c-primary);
+    color: var(--c-secondary);
+  }
+
+  &.dashboardLink {
+    width: 50px;
+    height: 50px;
+    background: var(--c-bg-accent);
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
+}

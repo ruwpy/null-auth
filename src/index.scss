@@ -1,0 +1,65 @@
+:root {
+  --font-main: "Nunito Sans", sans-serif;
+  --c-primary: #5769e9;
+  --c-secondary: #ffffff;
+  --c-bg-accent: #f4f6fb;
+  --c-accent: #47505b;
+  --c-error: #f06161;
+  --c-half-transparent-black: #808080;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100dvh;
+  font-family: var(--font-main);
+  overscroll-behavior: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  font-size: 14px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#root {
+  height: 100%;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+.animate-spin {
+  animation: animate-spin 1s infinite ease-in-out;
+}
+
+@keyframes animate-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,16 +1,17 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { Sidebar } from "@/components/sidebar";
 import { useLocation } from "react-router-dom";
+import styles from "./index.module.scss";
 
 export const MainPage = () => {
   const location = useLocation();
 
-  if (location.pathname === "/") return <Navigate to="/accounts" />;
+  if (location.pathname === "/") return <Navigate to="/passwords" />;
 
   return (
-    <div className="flex h-full">
+    <div className={styles.dashboardContainer}>
       <Sidebar />
-      <div className="relative mt-[30px] w-full bg-white">
+      <div className={styles.outletContainer}>
         <Outlet />
       </div>
     </div>

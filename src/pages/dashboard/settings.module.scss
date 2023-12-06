@@ -1,0 +1,20 @@
+.container {
+  padding: 15px 20px;
+}
+
+.topPart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.version {
+  opacity: 0.5;
+  user-select: none;
+}

@@ -1,45 +1,51 @@
 import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { useContextProvider } from "@/hooks/useContextProvider";
-import { hashString } from "@/lib/rustFunctions";
-import { store } from "@/store";
+import { verifyHash } from "@/lib/rustFunctions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
-const RegisterFormSchema = z
-  .object({
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-  });
+const RegisterFormSchema = z.object({
+  password: z.string().min(6),
+});
 
 type RegisterDataType = z.infer<typeof RegisterFormSchema>;
 
-export const VaultRegisterPage = () => {
+export const VaultAuthenticatePage = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<RegisterDataType>({ resolver: zodResolver(RegisterFormSchema) });
-
-  const { setPassphrase } = useContextProvider();
+  const { passphrase, setAuthenticated } = useContextProvider();
+  const [isLoading, setLoading] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
-    const { password } = data;
-    const hashedPassword = await hashString(password);
-    setPassphrase(hashedPassword);
-    await store.setData("passphrase", hashedPassword);
+    try {
+      setLoading(true);
+      const isCorrect = await verifyHash(data.password, passphrase);
+      if (!isCorrect) return setError("password", { message: "Incorrect password" });
+
+      toast.success("Authenticated");
+      setAuthenticated(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   });
 
   return (
     <div className="flex flex-col items-center relative mt-[150px] w-full bg-white px-[20px]">
       <img src="/nullauth.svg" alt="null-auth logo" />
-      <h1 className="mt-[10px]">Welcome to null-auth</h1>
+      <h1 className="mt-[10px]">Welcome back!</h1>
       <span className="text-center max-w-[300px]">
-        set a password for further access to the application
+        to get into application you have to enter the password
       </span>
       <form
         onSubmit={onSubmit}
@@ -51,15 +57,10 @@ export const VaultRegisterPage = () => {
           type="password"
           {...register("password")}
         />
-        <Input
-          className={
-            errors.confirmPassword?.message ? "outline-red-500 ring-transparent" : ""
-          }
-          placeholder="Confirm password"
-          type="password"
-          {...register("confirmPassword")}
-        />
-        <Button className="w-full mt-[20px]">Confirm</Button>
+        <Button disabled={isLoading} className="w-full mt-[20px]">
+          {isLoading && <Icons.loading width={15} height={15} className="animate-spin" />}
+          Confirm
+        </Button>
       </form>
     </div>
   );

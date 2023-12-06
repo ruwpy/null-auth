@@ -13,6 +13,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             totp::generate_totp,
             encryption::hash_string,
+            encryption::verify_hash,
             encryption::encrypt_string,
             encryption::decrypt_string,
             parse_uri::parse_data_from_uri
