@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useContextProvider } from "@/hooks/useContextProvider";
 import { hashString } from "@/lib/rustFunctions";
-import { store } from "@/store";
+import { store } from "@/store/localStore";
+import { useZustandStore } from "@/store/useZustandStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,22 +25,18 @@ export const VaultRegisterPage = () => {
     formState: { errors },
   } = useForm<RegisterDataType>({ resolver: zodResolver(RegisterFormSchema) });
 
-  const { setPassphrase } = useContextProvider();
-
+  const { setPassphrase } = useZustandStore();
   const onSubmit = handleSubmit(async (data) => {
     const { password } = data;
     const hashedPassword = await hashString(password);
-    setPassphrase(hashedPassword);
-    await store.setData("passphrase", hashedPassword);
+    await setPassphrase(hashedPassword);
   });
 
   return (
-    <div className="flex flex-col items-center relative mt-[150px] w-full bg-white px-[20px]">
+    <div className="flex flex-col items-center relative mt-[100px] w-full bg-white px-[20px]">
       <img src="/nullauth.svg" alt="null-auth logo" />
       <h1 className="mt-[10px]">Welcome to null-auth</h1>
-      <span className="text-center max-w-[300px]">
-        set a password for further access to the application
-      </span>
+      <p className="text-center">to get started you need to set your passcode</p>
       <form
         onSubmit={onSubmit}
         className="flex flex-col gap-[10px] max-w-[250px] mt-[20px]"

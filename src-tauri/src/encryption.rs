@@ -1,16 +1,10 @@
-use bcrypt::{hash, verify, DEFAULT_COST};
+use bcrypt::{hash, DEFAULT_COST};
 use magic_crypt::{new_magic_crypt, MagicCryptTrait};
 
 #[tauri::command]
 pub async fn hash_string(str: String) -> String {
     let hashed_string = hash(str, DEFAULT_COST).unwrap();
     hashed_string.into()
-}
-
-#[tauri::command]
-pub async fn verify_hash(str: String, hash: String) -> bool {
-    let is_correct = verify(str, &hash).unwrap();
-    is_correct.into()
 }
 
 #[tauri::command]

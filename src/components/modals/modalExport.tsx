@@ -1,10 +1,10 @@
+import { IAccount } from "@/types";
 import { Modal, ModalProps } from "./modal";
 import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
+import { useZustandStore } from "@/store/useZustandStore";
 import { decryptString } from "@/lib/rustFunctions";
 import { Button } from "../ui/button";
-import { useContextProvider } from "@/hooks/useContextProvider";
-import { IAccount } from "@/types";
 
 interface ModalExportProps extends ModalProps {
   accountsToExport: IAccount[];
@@ -20,7 +20,8 @@ export const ModalExport = ({
     accountsToExport[currentPage]
   );
   const [otpauthLink, setOtpauthLink] = useState("");
-  const { passphrase } = useContextProvider();
+
+  const { passphrase } = useZustandStore();
 
   useEffect(() => {
     const nextAccount = async () => {

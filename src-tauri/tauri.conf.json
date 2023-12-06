@@ -2,13 +2,13 @@
   "build": {
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
-    "devPath": "http://localhost:1421",
+    "devPath": "http://localhost:1420",
     "distDir": "../dist",
     "withGlobalTauri": false
   },
   "package": {
     "productName": "null-auth",
-    "version": "0.1.2"
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -23,12 +23,12 @@
     },
     "bundle": {
       "active": true,
-      "category": "Utility",
+      "category": "Security",
       "copyright": "GPL-3.0",
       "targets": "all",
       "identifier": "com.ruwpy.nullauth",
       "publisher": "ruwpy",
-      "shortDescription": "null-auth",
+      "shortDescription": "TOTP auth application",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -42,11 +42,12 @@
     },
     "windows": [
       {
+        "decorations": false,
         "fullscreen": false,
         "resizable": false,
         "title": "null-auth",
-        "width": 785,
-        "height": 500,
+        "width": 400,
+        "height": 600,
         "titleBarStyle": "Visible"
       }
     ],

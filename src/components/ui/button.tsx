@@ -1,28 +1,25 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
-import styles from "./button.module.scss";
 
-const button = cva(styles.button, {
-  variants: {
-    variant: {
-      primary: styles.primary,
-      dashboardLink: styles.dashboardLink,
+const button = cva(
+  "w-fit flex justify-center items-center gap-[10px] px-[15px] disabled:opacity-50 disabled:cursor-not-allowed py-[8px] rounded-[10px] transition-colors",
+  {
+    variants: {
+      variant: {
+        primary: "bg-neutral-900 hover:bg-neutral-800 text-white",
+        secondary: "bg-white hover:bg-slate-50 text-neutral-900 border border-black/5",
+      },
     },
-    width: {
-      fit: "",
-      full: styles.fullWidth,
+    defaultVariants: {
+      variant: "primary",
     },
-  },
-  defaultVariants: {
-    variant: "primary",
-    width: "fit",
-  },
-});
+  }
+);
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof button> {}
 
-export const Button = ({ variant, width, className, ...props }: ButtonProps) => {
-  return <button className={cn(button({ variant, width, className }))} {...props} />;
+export const Button = ({ variant, className, ...props }: ButtonProps) => {
+  return <button className={cn(button({ variant, className }))} {...props} />;
 };
