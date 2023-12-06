@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useContextProvider } from "@/hooks/useContextProvider";
 import { hashString } from "@/lib/rustFunctions";
-import { savePassphrase } from "@/store/actions";
+import { store } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -31,7 +31,7 @@ export const VaultRegisterPage = () => {
     const { password } = data;
     const hashedPassword = await hashString(password);
     setPassphrase(hashedPassword);
-    await savePassphrase({ passphrase: hashedPassword });
+    await store.setData("passphrase", hashedPassword);
   });
 
   return (

@@ -1,13 +1,21 @@
 import { SetStateAction } from "react";
 
-interface IAccount {
+interface IOtp {
   id: string;
   secret: string;
   issuer: string;
   name?: string;
 }
 
+interface IPassword {
+  id: string;
+  login: string;
+  email: string;
+  password: string;
+}
+
 interface ICard {
+  issuerBank: TCardType;
   id: string;
   cardNumber: string;
   cardHolder: string;
@@ -38,10 +46,10 @@ interface ICardType {
 
 interface IAppStoreData {
   passphrase: string;
-  accounts: IAccount[];
+  otpAccounts: IAccount[];
   isAuthenticated: boolean;
   setPassphrase: (passphrase: string) => void;
-  setAccounts: React.Dispatch<SetStateAction<IAccount[]>>;
+  setOtpAccounts: React.Dispatch<SetStateAction<IAccount[]>>;
   setAuthenticated: (val: boolean) => void;
   // getPassphrase: () => Promise<void>;
   // getAccounts: () => Promise<void>;

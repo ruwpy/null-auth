@@ -1,14 +1,14 @@
-import { getAccounts, getPassphrase } from "@/store/actions";
 import { createContext, useEffect, useState } from "react";
 import { Icons } from "./ui/icons";
-import { IAccount, IAppStoreData } from "@/types";
+import { IOtp, IAppStoreData } from "@/types";
+import { store } from "@/store";
 
 export const AppContext = createContext<IAppStoreData | null>(null);
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [passphrase, setPassphrase] = useState<string>("");
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [accounts, setAccounts] = useState<IAccount[]>([]);
+  const [otpAccounts, setOtpAccounts] = useState<IOtp[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,11 +16,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
     const getData = async () => {
       try {
-        const passphrase = await getPassphrase();
+        const passphrase = await store.getData("passphrase");
         if (passphrase) setPassphrase(passphrase);
 
-        const accounts = await getAccounts();
-        if (accounts) setAccounts(accounts);
+        const otpAccounts = await store.getData("otps");
+        if (otpAccounts) setOtpAccounts(otpAccounts);
       } catch (error) {
         console.log(error);
       } finally {
@@ -35,11 +35,11 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     <AppContext.Provider
       value={{
         passphrase,
-        accounts,
+        otpAccounts,
         isAuthenticated,
         setAuthenticated,
         setPassphrase,
-        setAccounts,
+        setOtpAccounts,
       }}
     >
       {isLoading ? (
