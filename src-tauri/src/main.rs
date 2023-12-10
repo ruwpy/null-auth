@@ -3,21 +3,18 @@
 
 use tauri_plugin_store;
 
-mod encryption;
-mod parse_uri;
-mod totp;
+mod commands;
 
 fn main() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_store::Builder::default().build())
-        .invoke_handler(tauri::generate_handler![
-            totp::generate_totp,
-            encryption::hash_string,
-            encryption::verify_hash,
-            encryption::encrypt_string,
-            encryption::decrypt_string,
-            parse_uri::parse_data_from_uri
-        ])
-        .run(tauri::generate_context!())
+    let app = tauri::Builder::default();
+
+    // adding functions to handler
+    let app = app.invoke_handler(tauri::generate_handler![]);
+
+    // adding plugins
+    let app = app.plugin(tauri_plugin_store::Builder::default().build());
+
+    // running app
+    app.run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
