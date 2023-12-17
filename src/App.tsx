@@ -8,8 +8,37 @@ import { CardsPage } from "./pages/dashboard/cards";
 import { OtpPage } from "./pages/dashboard/otp";
 import styles from "./App.module.scss";
 import { SettingsPage } from "./pages/dashboard/settings";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const disableMenu = () => {
+      if (window.location.hostname !== "tauri.localhost") {
+        return;
+      }
+
+      document.addEventListener(
+        "contextmenu",
+        (e) => {
+          e.preventDefault();
+          return false;
+        },
+        { capture: true }
+      );
+
+      document.addEventListener(
+        "selectstart",
+        (e) => {
+          e.preventDefault();
+          return false;
+        },
+        { capture: true }
+      );
+    };
+
+    disableMenu();
+  }, []);
+
   return (
     <>
       <DataProvider>
