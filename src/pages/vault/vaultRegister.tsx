@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useContextProvider } from "@/hooks/useContextProvider";
-import { hashString } from "@/lib/rustFunctions";
+import { hashPassword } from "@/lib/commands";
 import { store } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import styles from "./vault.module.scss";
 
 const RegisterFormSchema = z
   .object({
@@ -25,41 +26,39 @@ export const VaultRegisterPage = () => {
     formState: { errors },
   } = useForm<RegisterDataType>({ resolver: zodResolver(RegisterFormSchema) });
 
-  const { setPassphrase } = useContextProvider();
+  const { setPassphrase, setHashedPassphrase } = useContextProvider();
 
   const onSubmit = handleSubmit(async (data) => {
     const { password } = data;
-    const hashedPassword = await hashString(password);
-    setPassphrase(hashedPassword);
-    await store.setData("passphrase", hashedPassword);
+
+    const hashedPassword = await hashPassword(password);
+
+    setHashedPassphrase(hashedPassword);
+    setPassphrase(password);
+
+    await store.setPassphrase(hashedPassword);
   });
 
   return (
-    <div className="flex flex-col items-center relative mt-[150px] w-full bg-white px-[20px]">
-      <img src="/nullauth.svg" alt="null-auth logo" />
-      <h1 className="mt-[10px]">Welcome to null-auth</h1>
-      <span className="text-center max-w-[300px]">
-        set a password for further access to the application
-      </span>
-      <form
-        onSubmit={onSubmit}
-        className="flex flex-col gap-[10px] max-w-[250px] mt-[20px]"
-      >
+    <div className={styles.vault}>
+      <h1>Welcome to null-auth</h1>
+      <span>set a password for further access to the application</span>
+      <form onSubmit={onSubmit} className={styles.form}>
         <Input
-          className={errors.password?.message ? "outline-red-500 ring-transparent" : ""}
+          error={errors.password?.message}
           placeholder="Password"
           type="password"
           {...register("password")}
         />
         <Input
-          className={
-            errors.confirmPassword?.message ? "outline-red-500 ring-transparent" : ""
-          }
+          error={errors.confirmPassword?.message}
           placeholder="Confirm password"
           type="password"
           {...register("confirmPassword")}
         />
-        <Button className="w-full mt-[20px]">Confirm</Button>
+        <Button className={styles.submitButton} width="full">
+          Confirm
+        </Button>
       </form>
     </div>
   );

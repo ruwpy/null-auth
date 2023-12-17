@@ -7,10 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.description {
-  margin-top: 5px;
+  user-select: none;
 }
 
 .form {
@@ -20,8 +17,14 @@
   margin-top: 20px;
   gap: 5px;
   margin-bottom: 50px;
+  user-select: auto;
 }
 
 .submitButton {
   margin-top: 5px;
+}
+
+.error {
+  text-align: center;
+  color: var(--c-error);
 }

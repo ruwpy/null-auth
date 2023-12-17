@@ -9,6 +9,7 @@
   padding-top: 7px;
   padding-bottom: 8px;
   transition: border-color 50ms;
+  user-select: none;
 
   &:focus {
     border: 2px solid var(--c-primary);
