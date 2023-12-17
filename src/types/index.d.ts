@@ -46,14 +46,14 @@ interface ICardType {
 
 interface IAppStoreData {
   passphrase: string;
-  otpAccounts: IAccount[];
-  isAuthenticated: boolean;
-  setPassphrase: (passphrase: string) => void;
-  setOtpAccounts: React.Dispatch<SetStateAction<IAccount[]>>;
-  setAuthenticated: (val: boolean) => void;
-  // getPassphrase: () => Promise<void>;
-  // getAccounts: () => Promise<void>;
-  // verifyPassphrase: (passphrase: string) => Promise<void>;
-  // addAccount: (account: IAccount, passphrase: string) => Promise<void>;
-  // deleteAccount: (accountSecret: string) => Promise<void>;
+  hashedPassphrase: string;
+  otpAccounts: IOtp[];
+  cards: ICard[];
+  passwords: IPassword[];
+  isLoading: boolean;
+  setPassphrase: React.Dispatch<SetStateAction<string>>;
+  setHashedPassphrase: React.Dispatch<SetStateAction<string>>;
+  setOtpAccounts: React.Dispatch<SetStateAction<IOtp[]>>;
+  setCards: React.Dispatch<SetStateAction<ICard[]>>;
+  setPasswords: React.Dispatch<SetStateAction<IPassword[]>>;
 }

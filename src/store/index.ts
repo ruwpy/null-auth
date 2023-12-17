@@ -1,51 +1,76 @@
+import { decryptString, encryptString } from "@/lib/commands";
 import { ICard, IOtp, IPassword } from "@/types";
 import { Store } from "tauri-plugin-store-api";
 
-interface Data {
+export interface IData {
   passwords: IPassword[];
   cards: ICard[];
   otps: IOtp[];
-  passphrase: string;
 }
 
-type ArrayElement<T extends readonly unknown[]> = T[number];
-type DataArrays = {
-  [K in keyof Data]: Data[K] extends unknown[] ? K : never;
-}[keyof Data];
+export type TDataKeys = keyof IData & string;
 
 const createStore = () => {
   const store = new Store(".localdata.dat");
 
-  const getData = async <K extends keyof Data>(key: K) => {
-    const data = (await store.get(key)) as Data[K];
-    return data;
+  const getPassphrase = async () => {
+    const hashedPassphrase = (await store.get("passphrase")) as string;
+    return hashedPassphrase;
   };
 
-  const setData = async <K extends keyof Data>(key: K, data: Data[K]) => {
-    await store.set(key, data);
+  const setPassphrase = async (hashedPassphrase: string) => {
+    await store.set("passphrase", hashedPassphrase);
     await store.save();
   };
 
-  const addElement = async <K extends DataArrays, E extends ArrayElement<Data[K]>>(
+  const getData = async <K extends TDataKeys>(key: K, passphrase: string) => {
+    const encryptedData = (await store.get(key)) as string;
+
+    if (encryptedData) {
+      const decryptedData = await decryptString(encryptedData, passphrase);
+
+      const data = JSON.parse(decryptedData) as IData[K];
+
+      return data;
+    }
+  };
+
+  const setData = async <K extends TDataKeys>(
     key: K,
-    element: E
+    data: IData[K],
+    passphrase: string
   ) => {
-    const data = (await store.get(key)) as Data[K];
+    const encryptedData = await encryptString(JSON.stringify(data), passphrase);
 
-    await store.set(key, [...data, element]);
+    await store.set(key, encryptedData);
     await store.save();
   };
 
-  const removeElement = async <K extends DataArrays>(key: K, id: string) => {
-    const data = (await store.get(key)) as Data[K];
+  const addElement = async <K extends TDataKeys>(
+    key: K,
+    element: IData[K][number],
+    passphrase: string
+  ) => {
+    const data = (await store.get(key)) as IData[K];
 
-    const filteredArray = data.filter((el) => el.id !== id);
+    const appendedArray = [...(data || []), element] as IData[K];
 
-    await store.set(key, filteredArray);
-    await store.save();
+    await setData(key, appendedArray, passphrase);
   };
 
-  return { getData, setData, addElement, removeElement };
+  const removeElement = async <K extends TDataKeys>(
+    key: K,
+    id: string,
+    passphrase: string
+  ) => {
+    const data = (await store.get(key)) as IData[K];
+
+    const filteredArray = data.filter((el) => el.id !== id) as IData[K];
+
+    await setData(key, filteredArray, passphrase);
+  };
+
+  return { getPassphrase, setPassphrase, getData, setData, addElement, removeElement };
 };
 
 export const store = createStore();

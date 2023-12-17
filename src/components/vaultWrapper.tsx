@@ -5,9 +5,9 @@ import { useContextProvider } from "@/hooks/useContextProvider";
 
 export const VaultWrapper = ({ children }: { children: JSX.Element }) => {
   const [pageToDisplay, setPageToDisplay] = useState<
-    "authenticated" | "unregistered" | "unauthenticated"
-  >("authenticated");
-  const { passphrase, isAuthenticated } = useContextProvider();
+    "authenticated" | "unregistered" | "unauthenticated" | null
+  >(null);
+  const { isLoading, passphrase, hashedPassphrase } = useContextProvider();
 
   const pages = {
     authenticated: children,
@@ -16,9 +16,14 @@ export const VaultWrapper = ({ children }: { children: JSX.Element }) => {
   };
 
   useEffect(() => {
-    if (passphrase) setPageToDisplay("unauthenticated");
-    if (passphrase && isAuthenticated) setPageToDisplay("authenticated");
-  }, [passphrase, isAuthenticated]);
+    if (!isLoading) {
+      if (!hashedPassphrase) setPageToDisplay("unregistered");
+      if (hashedPassphrase) setPageToDisplay("unauthenticated");
+      if (hashedPassphrase && passphrase) setPageToDisplay("authenticated");
+    }
+  }, [hashedPassphrase, passphrase]);
 
-  return pages["authenticated"];
+  if (pageToDisplay !== null) {
+    return pages[pageToDisplay];
+  }
 };
