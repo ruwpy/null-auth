@@ -1,6 +1,6 @@
 import { SetStateAction, createContext, useEffect, useState } from "react";
 import { IOtp, IAppStoreData, ICard, IPassword } from "@/types";
-import { TDataKeys, store } from "@/store";
+import { IData, TDataKeys, store } from "@/store";
 
 type TRequiredData = {
   [key in TDataKeys]: React.Dispatch<SetStateAction<any>>;
@@ -11,9 +11,9 @@ export const AppContext = createContext<IAppStoreData | null>(null);
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [passphrase, setPassphrase] = useState<string>("");
   const [hashedPassphrase, setHashedPassphrase] = useState<string>("");
-  const [otpAccounts, setOtpAccounts] = useState<IOtp[]>([]);
-  const [cards, setCards] = useState<ICard[]>([]);
-  const [passwords, setPasswords] = useState<IPassword[]>([]);
+  const [otpAccounts, setOtpAccounts] = useState<IOtp[] | undefined>([]);
+  const [cards, setCards] = useState<ICard[] | undefined>([]);
+  const [passwords, setPasswords] = useState<IPassword[] | undefined>([]);
   const [isLoading, setLoading] = useState(true);
 
   const requiredData: TRequiredData = {

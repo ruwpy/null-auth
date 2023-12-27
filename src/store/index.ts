@@ -29,7 +29,7 @@ const createStore = () => {
     if (encryptedData) {
       const decryptedData = await decryptString(encryptedData, passphrase);
 
-      const data = JSON.parse(decryptedData) as IData[K];
+      const data = JSON.parse(decryptedData) as IData[K] | undefined;
 
       return data;
     }

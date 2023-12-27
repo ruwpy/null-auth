@@ -9,6 +9,7 @@ interface IOtp {
 
 interface IPassword {
   id: string;
+  issuerService: string;
   login: string;
   email: string;
   password: string;
@@ -25,17 +26,14 @@ interface ICard {
 
 type TCardType =
   | "amex"
-  | "diners_club_carte_blanche"
   | "diners_club_international"
   | "jcb"
-  | "laser"
   | "visa_electron"
   | "visa"
   | "mastercard"
   | "discover"
   | "dankort"
   | "maestro"
-  | "uatp"
   | "mir";
 
 interface ICardType {
@@ -47,13 +45,13 @@ interface ICardType {
 interface IAppStoreData {
   passphrase: string;
   hashedPassphrase: string;
-  otpAccounts: IOtp[];
-  cards: ICard[];
-  passwords: IPassword[];
+  otpAccounts: IOtp[] | undefined;
+  cards: ICard[] | undefined;
+  passwords: IPassword[] | undefined;
   isLoading: boolean;
   setPassphrase: React.Dispatch<SetStateAction<string>>;
   setHashedPassphrase: React.Dispatch<SetStateAction<string>>;
-  setOtpAccounts: React.Dispatch<SetStateAction<IOtp[]>>;
-  setCards: React.Dispatch<SetStateAction<ICard[]>>;
-  setPasswords: React.Dispatch<SetStateAction<IPassword[]>>;
+  setOtpAccounts: React.Dispatch<SetStateAction<IOtp[] | undefined>>;
+  setCards: React.Dispatch<SetStateAction<ICard[] | undefined>>;
+  setPasswords: React.Dispatch<SetStateAction<IPassword[] | undefined>>;
 }
