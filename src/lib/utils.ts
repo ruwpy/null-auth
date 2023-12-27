@@ -26,14 +26,9 @@ const cardTypes: ICardType[] = [
     validLength: [15],
   },
   {
-    name: "diners_club_carte_blanche",
-    range: range(300, 305),
-    validLength: [16, 17, 18, 19],
-  },
-  {
     name: "diners_club_international",
-    range: [3095, 36, 38, 39],
-    validLength: [14, 15, 16, 17, 18, 19],
+    range: [3095, 36, 38, 39, ...range(300, 305)],
+    validLength: range(14, 19),
   },
   {
     name: "jcb",
@@ -46,11 +41,6 @@ const cardTypes: ICardType[] = [
       ...range(3528, 3589),
     ],
     validLength: [16],
-  },
-  {
-    name: "laser",
-    range: [6304, 6706, 6709, 6771],
-    validLength: [16, 17, 18, 19],
   },
   {
     name: "visa_electron",
@@ -83,11 +73,6 @@ const cardTypes: ICardType[] = [
     validLength: [12, 13, 14, 15, 16, 17, 18, 19],
   },
   {
-    name: "uatp",
-    range: [1],
-    validLength: [15],
-  },
-  {
     name: "mir",
     range: [2200, 2204],
     validLength: [16],
@@ -102,4 +87,8 @@ export const validateCard = (cardNumber: string) => {
         return { name: cardType.name, length: cardType.validLength };
     }
   }
+};
+
+export const writeToClipboard = (str: string) => {
+  navigator.clipboard.writeText(str);
 };
