@@ -1,5 +1,7 @@
+@forward "./fonts.scss";
+
 :root {
-  --font-main: "Nunito Sans", sans-serif;
+  --font-main: "Outfit";
   --c-primary: #5769e9;
   --c-secondary: #ffffff;
   --c-bg-accent: #f4f6fb;
@@ -37,13 +39,18 @@ body::-webkit-scrollbar {
   height: 100%;
 }
 
+h1,
+h2 {
+  user-select: none;
+}
+
 h1 {
   font-size: 32px;
-  font-weight: 800;
+  font-weight: 600;
 }
 h2 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 input::-ms-reveal,
