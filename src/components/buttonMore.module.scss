@@ -1,0 +1,12 @@
+.moreButton {
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 100ms;
+
+  &:hover {
+    background: var(--c-bg-accent);
+  }
+}
