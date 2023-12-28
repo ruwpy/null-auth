@@ -1,6 +1,7 @@
 import { MotionProps, Variants, motion as m } from "framer-motion";
-import { SetStateAction } from "react";
+import React, { SetStateAction, useEffect } from "react";
 import { createPortal } from "react-dom";
+import styles from "./modalWrapper.module.scss";
 
 export interface ModalProps extends MotionProps {
   children?: React.ReactNode;
@@ -13,15 +14,32 @@ export const appearAnimation: Variants = {
   animate: { opacity: 1 },
 };
 
-export const Modal = ({ children, modalOpen, setModalOpen }: ModalProps) => {
+export const Modal = ({ children, setModalOpen }: ModalProps) => {
+  const closeOnEsc = (k: string) => {
+    if (k === "Escape") {
+      setModalOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    const listenerArgs: ["keydown", (e: KeyboardEvent) => void] = [
+      "keydown",
+      (e) => closeOnEsc(e.key),
+    ];
+
+    document.addEventListener(...listenerArgs);
+
+    return () => document.removeEventListener(...listenerArgs);
+  }, []);
+
   return createPortal(
     <m.div
       variants={appearAnimation}
-      transition={{ duration: 0.1 }}
+      transition={{ duration: 0.08 }}
       initial="initial"
       animate="animate"
       exit="initial"
-      className="flex justify-center items-center fixed left-0 top-0 w-full h-full bg-black/50"
+      className={styles.modalWrapper}
       onClick={() => setModalOpen(false)}
     >
       {children}

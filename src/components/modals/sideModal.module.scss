@@ -1,0 +1,23 @@
+.sideModalContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.modalContent {
+  height: calc(100% - 5px);
+  width: 350px;
+  background: var(--c-secondary);
+  border-top-left-radius: 10px;
+  padding: 20px;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  padding: 5px;
+  cursor: pointer;
+}
