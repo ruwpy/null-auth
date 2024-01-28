@@ -1,0 +1,55 @@
+// Unofficial protobuf definition of Google Authenticator Migration exports
+// Based on Google Authenticator 5.10
+// Chris van Marle 04-06-2020
+
+syntax = "proto3";
+
+package protobuf.oauth;
+
+message MigrationPayload {
+	repeated OtpParameters otp_parameters = 1;
+
+	int32 version = 2;
+
+	int32 batch_size = 3;
+
+	int32 batch_index = 4;
+
+	int32 batch_id = 5;
+}
+
+message OtpParameters {
+	bytes secret = 1;
+
+	string name = 2;
+
+	string issuer = 3;
+
+	Algorithm algorithm = 4;
+
+	DigitCount digits = 5;
+
+	OtpType type = 6;
+
+	int64 counter = 7;
+}
+
+enum Algorithm {
+	ALGORITHM_TYPE_UNSPECIFIED = 0;
+	SHA1 = 1;
+	SHA256 = 2;
+	SHA512 = 3;
+	MD5 = 4;
+}
+
+enum DigitCount {
+	DIGIT_COUNT_UNSPECIFIED = 0;
+	SIX = 1;
+	EIGHT = 2;
+}
+
+enum OtpType {
+	OTP_TYPE_UNSPECIFIED = 0;
+	HOTP = 1;
+	TOTP = 2;
+}
