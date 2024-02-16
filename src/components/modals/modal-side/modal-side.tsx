@@ -1,13 +1,14 @@
-import { AnimatePresence, Variants } from "framer-motion";
-import { Modal, ModalProps } from "./modalWrapper";
-import styles from "./sideModal.module.scss";
+import { Variants } from "framer-motion";
+import { Modal, ModalProps } from "../modal-wrapper/modal-wrapper";
+import styles from "./modal-side.module.scss";
 import { motion as m } from "framer-motion";
-import { Icons } from "../ui/icons";
+import { Icons } from "@/components/ui/icons";
 import { constants } from "@/lib/constants";
 import { ReactNode } from "react";
 
-interface ISideModal extends ModalProps {
+interface SideModalProps extends ModalProps {
   title: string;
+  description?: string;
   children: ReactNode;
 }
 
@@ -16,7 +17,13 @@ const variants: Variants = {
   animate: { x: "0px", transition: { duration: 0.15 } },
 };
 
-export const SideModal = ({ modalOpen, setModalOpen, title, children }: ISideModal) => {
+export const SideModal = ({
+  modalOpen,
+  setModalOpen,
+  title,
+  children,
+  description,
+}: SideModalProps) => {
   return (
     <Modal {...{ modalOpen, setModalOpen }}>
       <div className={styles.sideModalContainer}>
@@ -32,6 +39,7 @@ export const SideModal = ({ modalOpen, setModalOpen, title, children }: ISideMod
           </div>
           <div>
             <h1>{title}</h1>
+            <p className={styles.description}>{description}</p>
             <div>{children}</div>
           </div>
         </m.div>

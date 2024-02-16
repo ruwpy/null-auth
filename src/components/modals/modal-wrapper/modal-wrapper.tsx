@@ -1,7 +1,7 @@
 import { MotionProps, Variants, motion as m } from "framer-motion";
 import React, { SetStateAction, useEffect } from "react";
 import { createPortal } from "react-dom";
-import styles from "./modalWrapper.module.scss";
+import styles from "./modal-wrapper.module.scss";
 
 export interface ModalProps extends MotionProps {
   children?: React.ReactNode;
