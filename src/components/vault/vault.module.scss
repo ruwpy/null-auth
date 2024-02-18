@@ -1,0 +1,34 @@
+.vault {
+  height: 100%;
+  background-image: url("/vault-img.svg");
+  background-repeat: no-repeat;
+  background-position: 350px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.form {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 5px;
+  margin-bottom: 50px;
+  user-select: auto;
+}
+
+.submitButton {
+  margin-top: 5px;
+}
+
+.heading {
+  margin-bottom: 5px;
+}
+
+.error {
+  text-align: center;
+  color: var(--c-error);
+}

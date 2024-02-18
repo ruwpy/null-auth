@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { VaultRegisterPage } from "@/pages/vault/vaultRegister";
-import { VaultAuthenticatePage } from "@/pages/vault/vaultAuthenticate";
+import { VaultRegisterPage } from "@/components/vault/vault-register";
+import { VaultAuthenticatePage } from "@/components/vault/vault-auth";
 import { useContextProvider } from "@/hooks/useContextProvider";
 
 export const VaultWrapper = ({ children }: { children: JSX.Element }) => {

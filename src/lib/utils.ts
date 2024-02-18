@@ -92,3 +92,37 @@ export const validateCard = (cardNumber: string) => {
 export const writeToClipboard = (str: string) => {
   navigator.clipboard.writeText(str);
 };
+
+export const compareObjects = <T extends { [key: string]: any }>(
+  a: T,
+  b: T,
+  ignoredKeys?: string[]
+): boolean => {
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (const key of keysA) {
+    if (keysB.indexOf(key) < 0) {
+      return false;
+    }
+
+    const valueA = a[key];
+    const valueB = b[key];
+
+    if (ignoredKeys && ignoredKeys.indexOf(key) < 0) continue;
+
+    if (typeof valueA === "object" && typeof valueB === "object") {
+      if (!compareObjects(valueA, valueB)) {
+        return false;
+      }
+    } else if (valueA !== valueB) {
+      return false;
+    }
+  }
+
+  return true;
+};

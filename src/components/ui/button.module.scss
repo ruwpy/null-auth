@@ -12,16 +12,18 @@
   border-radius: 10px;
   transition: background 100ms, color 100ms, opacity 100ms;
   cursor: pointer;
-  font-weight: 500;
   font-size: inherit;
   height: fit-content;
+  user-select: none;
 
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    outline: none;
 
     &:hover {
-      opacity: 1;
+      opacity: 0.6;
+      outline: none;
     }
   }
 

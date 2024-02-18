@@ -6,6 +6,7 @@ const button = cva(styles.button, {
   variants: {
     variant: {
       primary: styles.primary,
+      blank: "",
       dashboardLink: styles.dashboardLink,
     },
     width: {

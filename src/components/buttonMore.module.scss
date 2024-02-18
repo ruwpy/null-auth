@@ -1,8 +1,10 @@
 .moreButton {
-  width: 30px;
-  height: 30px;
-  padding: 3px;
-  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background 100ms;
 

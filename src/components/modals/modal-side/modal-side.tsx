@@ -13,8 +13,8 @@ interface SideModalProps extends ModalProps {
 }
 
 const variants: Variants = {
-  initial: { x: "300px" },
-  animate: { x: "0px", transition: { duration: 0.15 } },
+  initial: { x: "200px" },
+  animate: { x: "0px", transition: { duration: 0.2 } },
 };
 
 export const SideModal = ({

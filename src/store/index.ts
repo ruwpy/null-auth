@@ -35,34 +35,22 @@ const createStore = () => {
     }
   };
 
-  const setData = async <K extends TDataKeys>(
-    key: K,
-    data: IData[K],
-    passphrase: string
-  ) => {
+  const setData = async <K extends TDataKeys>(key: K, data: IData[K], passphrase: string) => {
     const encryptedData = await encryptString(JSON.stringify(data), passphrase);
 
     await store.set(key, encryptedData);
     await store.save();
   };
 
-  const addElement = async <K extends TDataKeys>(
-    key: K,
-    element: IData[K][number],
-    passphrase: string
-  ) => {
-    const data = (await store.get(key)) as IData[K];
+  const addElement = async <K extends TDataKeys>(key: K, element: IData[K][number], passphrase: string) => {
+    const data = await getData(key, passphrase);
 
     const appendedArray = [...(data || []), element] as IData[K];
 
     await setData(key, appendedArray, passphrase);
   };
 
-  const removeElement = async <K extends TDataKeys>(
-    key: K,
-    id: string,
-    passphrase: string
-  ) => {
+  const removeElement = async <K extends TDataKeys>(key: K, id: string, passphrase: string) => {
     const data = (await store.get(key)) as IData[K];
 
     const filteredArray = data.filter((el) => el.id !== id) as IData[K];

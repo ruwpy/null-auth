@@ -1,46 +1,46 @@
 import { Button } from "./ui/button";
 import { Icons } from "./ui/icons";
-import { Link, useLocation } from "react-router-dom";
 import styles from "./sidebar.module.scss";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
 
 export const Sidebar = () => {
-  const { pathname } = useLocation();
-
-  const LinkClassname = (path: string) => (path === pathname ? styles.active : "");
-
   return (
     <div className={styles.sidebar}>
       <div className={styles.buttonContainer}>
         <Link
           draggable={false}
-          className={cn(styles.dashboardLink, LinkClassname("/passwords"))}
+          activeProps={{
+            className: styles.active,
+          }}
+          className={styles.dashboardLink}
           to="/passwords"
         >
-          <Button variant={"dashboardLink"}>
+          <Button tabIndex={-1} variant={"dashboardLink"}>
             <Icons.passwords width={35} height={35} className={styles.svgIcon} />
           </Button>
         </Link>
         <Link
           draggable={false}
-          className={cn(styles.dashboardLink, LinkClassname("/cards"))}
+          activeProps={{
+            className: styles.active,
+          }}
+          className={styles.dashboardLink}
           to="/cards"
         >
-          <Button variant={"dashboardLink"}>
-            <Icons.cards
-              width={35}
-              height={35}
-              color="black"
-              className={styles.svgIcon}
-            />
+          <Button tabIndex={-1} variant={"dashboardLink"}>
+            <Icons.cards width={35} height={35} color="black" className={styles.svgIcon} />
           </Button>
         </Link>
         <Link
           draggable={false}
-          className={cn(styles.dashboardLink, LinkClassname("/otp"))}
+          activeProps={{
+            className: styles.active,
+          }}
+          className={styles.dashboardLink}
           to="/otp"
         >
-          <Button variant={"dashboardLink"}>
+          <Button tabIndex={-1} variant={"dashboardLink"}>
             <Icons.otp width={35} height={35} className={styles.svgIcon} />
           </Button>
         </Link>
@@ -48,10 +48,13 @@ export const Sidebar = () => {
       <div className={styles.buttonContainer}>
         <Link
           draggable={false}
-          className={cn(styles.dashboardLink, LinkClassname("/settings"))}
+          activeProps={{
+            className: styles.active,
+          }}
+          className={styles.dashboardLink}
           to="/settings"
         >
-          <Button variant={"dashboardLink"}>
+          <Button tabIndex={-1} variant={"dashboardLink"}>
             <Icons.settings width={35} height={35} className={styles.svgIcon} />
           </Button>
         </Link>

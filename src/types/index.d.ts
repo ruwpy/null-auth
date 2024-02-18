@@ -5,6 +5,7 @@ interface IOtp {
   secret: string;
   issuer: string;
   name?: string;
+  code?: string;
 }
 
 interface IPassword {

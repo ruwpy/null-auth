@@ -3,6 +3,7 @@
 :root {
   --font-main: "Outfit";
   --c-primary: #5769e9;
+  --c-primary-ht: #5769e9dd;
   --c-secondary: #ffffff;
   --c-bg-accent: #f4f6fb;
   --c-accent: #47505b;
@@ -20,6 +21,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Outfit", Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -50,12 +52,22 @@ h1 {
 }
 h2 {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 input::-ms-reveal,
 input::-ms-clear {
   display: none;
+}
+
+button {
+  outline: none;
+  border: none;
+
+  &:focus-visible {
+    outline: 3px solid var(--c-primary-ht);
+    outline-offset: 1px;
+  }
 }
 
 .animate-spin {

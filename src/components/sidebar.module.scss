@@ -23,6 +23,16 @@
 }
 
 .dashboardLink {
+  border-radius: 10px;
+
+  &:focus {
+    outline: 3px solid var(--c-primary-ht);
+  }
+
+  > button {
+    user-select: none;
+  }
+
   > button > svg {
     color: var(--c-accent);
     transition: color 100ms;

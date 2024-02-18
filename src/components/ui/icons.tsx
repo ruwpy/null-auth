@@ -1,8 +1,9 @@
-import { LucideProps, Loader2, Trash2 } from "lucide-react";
+import { LucideProps, Loader2, Trash2, X } from "lucide-react";
 
 export const Icons = {
   trash: Trash2,
   loading: Loader2,
+  x: X,
   more: ({ ...props }: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +88,48 @@ export const Icons = {
       />
     </svg>
   ),
-  // TODO logos
+  add: ({ ...props }: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+      />
+    </svg>
+  ),
+  picture: ({ ...props }: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z"
+      />
+    </svg>
+  ),
+  screenshot: ({ ...props }: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M680-80v-120H560v-80h120v-120h80v120h120v80H760v120h-80ZM200-200v-200h80v120h120v80H200Zm0-360v-200h200v80H280v120h-80Zm480 0v-120H560v-80h200v200h-80Z"
+      />
+    </svg>
+  ),
   cardTypes: {
     amex: ({ ...props }: LucideProps) => (
       <svg
@@ -366,12 +408,7 @@ export const Icons = {
       </svg>
     ),
     discover: ({ ...props }: LucideProps) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 95.69 62.85"
-        height={30}
-        {...props}
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95.69 62.85" height={30} {...props}>
         <path
           fill="white"
           d="M3.3,5.3v52.26c0,1.1,0.9,2,2,2h55.48c15.53,0,28.13-12.59,28.13-28.13v0c0-15.53-12.59-28.13-28.13-28.13H5.3   C4.19,3.3,3.3,4.19,3.3,5.3z"
@@ -395,12 +432,7 @@ export const Icons = {
       </svg>
     ),
     dankort: ({ ...props }: LucideProps) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 557.45 368.5"
-        height={30}
-        {...props}
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 557.45 368.5" height={30} {...props}>
         <path
           style={{ fill: "#E31F28" }}
           d="M427.53,173.87     l73.56,87.49c15.24-22.02,24.18-48.71,24.18-77.46c0-30.34-9.97-58.4-26.79-81.09L427.53,173.87z"
@@ -437,12 +469,7 @@ export const Icons = {
       </svg>
     ),
     visa: ({ ...props }: LucideProps) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1000 324.68351"
-        height={18}
-        {...props}
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 324.68351" height={18} {...props}>
         <path
           fill="#1434cb"
           d="m 651.18503,0.50000002 c -70.93272,0 -134.32163,36.76584998 -134.32163,104.69357998 0,77.90028 112.42264,83.28082 112.42264,122.41576 0,16.47806 -18.88384,31.22851 -51.13668,31.22851 -45.77308,0 -79.98403,-20.61081 -79.98403,-20.61081 l -14.63836,68.54658 c 0,0 39.41037,17.40989 91.73375,17.40989 77.55217,0 138.57651,-38.57104 138.57651,-107.66029 0,-82.3157 -112.89106,-87.53633 -112.89106,-123.86008 0,-12.9082 15.50201,-27.05169 47.66251,-27.05169 36.28682,0 65.89216,14.98968 65.89216,14.98968 l 14.32608,-66.20444 c 0,0 -32.21317,-13.89668998 -77.64189,-13.89668998 z M 2.2175605,5.49657 0.49999253,15.48969 c 0,0 29.84159547,5.46149 56.71878047,16.35593 34.606624,12.4927 37.071853,19.7653 42.900167,42.35367 l 63.51098,244.83152 85.13673,0 131.15974,-313.53424 -84.94155,0 L 210.7069,218.67018 176.3165,37.97422 C 173.1626,17.29371 157.18709,5.49657 137.63219,5.49657 l -135.4146295,0 z m 411.8650095,0 -66.63383,313.53424 80.99895,0 66.39962,-313.53424 -80.76474,0 z m 451.75943,0 c -19.53181,0 -29.88045,10.45695 -37.47421,28.73022 l -118.66834,284.80402 84.94155,0 16.434,-47.46734 103.48348,0 9.99312,47.46734 74.94843,0 -65.3847,-313.53424 -68.27333,0 z m 11.04709,84.70733 25.17799,117.65341 -67.45359,0 42.2756,-117.65341 z"
@@ -450,12 +477,7 @@ export const Icons = {
       </svg>
     ),
     mir: ({ ...props }: LucideProps) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 400 120"
-        height={22}
-        {...props}
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" height={22} {...props}>
         <linearGradient id="a" x1="370" x2="290" gradientUnits="userSpaceOnUse">
           <stop stopColor="#1F5CD7" />
           <stop stopColor="#02AEFF" offset="1" />

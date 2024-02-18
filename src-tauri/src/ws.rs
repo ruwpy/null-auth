@@ -30,6 +30,8 @@ pub async fn run_ws() {
     warp::serve(chat).run(([127, 0, 0, 1], 10544)).await;
 }
 
+// TODO: dynamically choose serving port
+
 async fn user_connected(ws: WebSocket, users: Users) {
     let connected_clients = CONNECTED_CLIENTS.load(Ordering::Relaxed);
 
@@ -107,8 +109,6 @@ async fn user_connected(ws: WebSocket, users: Users) {
                 break;
             }
         };
-
-        println!("{:?}", msg);
 
         user_message(id, msg, &users).await;
     }
