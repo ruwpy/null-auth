@@ -1,0 +1,64 @@
+.container {
+  padding: 15px 20px;
+}
+
+.topPart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+
+  > * {
+    flex-shrink: 0;
+    max-width: 250px;
+  }
+}
+
+.otpContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  user-select: none;
+}
+
+.otp {
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.otpData {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.code {
+  font-size: 28px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 110px;
+}
+
+.data {
+  display: flex;
+  gap: 5px;
+  opacity: 0.5;
+}
+
+.availableImportMethods {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}

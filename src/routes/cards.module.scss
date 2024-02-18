@@ -26,6 +26,10 @@
   gap: 5px;
 }
 
+.cardGroupNameHeading {
+  margin-bottom: 5px;
+}
+
 .cardsContainer {
   display: flex;
   gap: 20px;
@@ -41,11 +45,18 @@
   background: var(--c-secondary);
   border-radius: 10px;
   user-select: none;
+  outline-offset: -1px;
+  outline: 2px solid transparent;
+  transition: outline-offset 100ms, outline-color 100ms;
+
+  &:hover {
+    outline-offset: 1px;
+    outline: 2px solid var(--c-primary);
+  }
 }
 
 .cardDataContainer {
   cursor: pointer;
-  font-weight: 600;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -97,17 +108,4 @@
 
 .hiddenCardNumber {
   font-size: 16px;
-}
-
-.moreButton {
-  width: 30px;
-  height: 30px;
-  padding: 3px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background 100ms;
-
-  &:hover {
-    background: var(--c-bg-accent);
-  }
 }

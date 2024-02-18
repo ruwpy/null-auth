@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import styles from "./cards.module.scss";
-import { ICard, TCardType } from "@/types";
+import { ICard } from "@/types";
 import { nanoid } from "nanoid";
 import { useEffect, useMemo, useState } from "react";
 import { Icons } from "@/components/ui/icons";
 import { constants } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { ButtonMore } from "@/components/buttonMore";
+import { createFileRoute } from "@tanstack/react-router";
 
 interface ICardGroup {
   id: string;
@@ -24,7 +26,7 @@ export const CardsPage = () => {
       id: nanoid(),
     },
     {
-      issuerBank: "amex",
+      issuerBank: "mir",
       cardHolder: "DMITRII BALIANOV",
       cardNumber: "412345678912345678",
       cvv: 123,
@@ -46,7 +48,6 @@ export const CardsPage = () => {
       <div className={styles.topPart}>
         <h1>Cards</h1>
         <div className={styles.buttons}>
-          <Button>Create group</Button>
           <Button>Add card</Button>
         </div>
       </div>
@@ -62,7 +63,7 @@ export const CardsPage = () => {
 const CardGroup = ({ cards, groupName }: ICardGroup) => {
   return (
     <div className={styles.cardGroup}>
-      <h2>{groupName}</h2>
+      <h2 className={styles.cardGroupNameHeading}>{groupName}</h2>
       <div className={styles.cardsContainer}>
         {cards.map((c) => (
           <Card key={c.id} {...c} />
@@ -97,7 +98,7 @@ const Card = ({ issuerBank, cardHolder, cardNumber, cvv, date }: ICard) => {
     return `${result.join(" ")}`;
   }, [cardNumber]);
 
-  const BankLogo = Icons.issuerBanks[issuerBank];
+  const BankLogo = Icons.cardTypes[issuerBank];
 
   useEffect(() => {
     if (isCardShowed) {
@@ -122,10 +123,7 @@ const Card = ({ issuerBank, cardHolder, cardNumber, cvv, date }: ICard) => {
               <Icons.copy color={constants.colors.accent} width={20} height={20} />
             </div>
             <div className={styles.cvvContainer}>
-              <div
-                onClick={(e) => copy(e, cvv.toString())}
-                className={styles.cardDataContainer}
-              >
+              <div onClick={(e) => copy(e, cvv.toString())} className={styles.cardDataContainer}>
                 {cvv.toString()}
                 <Icons.copy color={constants.colors.accent} width={20} height={20} />
               </div>
@@ -141,10 +139,7 @@ const Card = ({ issuerBank, cardHolder, cardNumber, cvv, date }: ICard) => {
             </span>
             <span className={styles.expires}>
               Available until{" "}
-              <span
-                onClick={(e) => copy(e, getCardExpireDate(date))}
-                className={styles.textAccent}
-              >
+              <span onClick={(e) => copy(e, getCardExpireDate(date))} className={styles.textAccent}>
                 {getCardExpireDate(date)}
               </span>
             </span>
@@ -154,9 +149,7 @@ const Card = ({ issuerBank, cardHolder, cardNumber, cvv, date }: ICard) => {
         <>
           <div className={styles.topPart}>
             <BankLogo />
-            <span className={styles.moreButton}>
-              <Icons.more width={24} height={24} color={constants.colors.accent} />
-            </span>
+            <ButtonMore />
           </div>
           <span className={styles.hiddenCardNumber}>
             **** {cardNumber.substring(cardNumber.toString().length - 4)}
@@ -166,3 +159,9 @@ const Card = ({ issuerBank, cardHolder, cardNumber, cvv, date }: ICard) => {
     </div>
   );
 };
+
+const AddCardModal = () => {};
+
+export const Route = createFileRoute("/cards")({
+  component: CardsPage,
+});

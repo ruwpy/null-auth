@@ -1,7 +1,8 @@
 import styles from "./settings.module.scss";
-import packageJson from "../../../package.json";
+import packageJson from "../../package.json";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const SettingsPage = () => {
   const [isUpdateAvailable, setUpdateAvailable] = useState(true);
@@ -23,3 +24,7 @@ export const SettingsPage = () => {
 const Password = () => {
   return <div></div>;
 };
+
+export const Route = createFileRoute("/settings")({
+  component: SettingsPage,
+});

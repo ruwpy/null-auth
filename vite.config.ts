@@ -1,10 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tsConfigPathsPlugin from "vite-tsconfig-paths";
+import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 
 // https://vitejs.dev/config/
-export default defineConfig(async () => ({
-  plugins: [react(), tsConfigPathsPlugin()],
+export default defineConfig({
+  plugins: [react(), tsConfigPathsPlugin(), TanStackRouterVite()],
   css: {
     modules: {
       localsConvention: "camelCase",
@@ -30,4 +31,4 @@ export default defineConfig(async () => ({
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
   },
-}));
+});
