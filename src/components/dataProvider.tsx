@@ -1,6 +1,7 @@
 import { SetStateAction, createContext, useEffect, useState } from "react";
 import { IOtp, IAppStoreData, ICard, IPassword } from "@/types";
 import { IData, TDataKeys, store } from "@/store";
+import { generateTotp } from "@/lib/commands";
 
 type TRequiredData = {
   [key in TDataKeys]: React.Dispatch<SetStateAction<any>>;
@@ -21,6 +22,40 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     cards: setCards,
     passwords: setPasswords,
   };
+
+  const updateOtpCodes = async () => {
+    if (otpAccounts?.length) {
+      const newOtps = await Promise.all(
+        otpAccounts.map(async (acc) => {
+          const code: string = await generateTotp(acc.secret);
+
+          return {
+            ...acc,
+            code,
+          };
+        })
+      );
+
+      setOtpAccounts(newOtps);
+
+      let timeout: NodeJS.Timeout | null = null;
+
+      if (timeout) clearTimeout(timeout);
+
+      timeout = setTimeout(() => updateOtpCodes(), 30000);
+    }
+  };
+
+  useEffect(() => {
+    updateOtpCodes();
+
+    const timeout = setTimeout(
+      () => updateOtpCodes(),
+      Number(`${30 - (new Date().getSeconds() % 30)}000`)
+    );
+
+    return () => clearTimeout(timeout);
+  }, [otpAccounts]);
 
   useEffect(() => {
     setLoading(true);
