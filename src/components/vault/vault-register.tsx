@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button/button";
+import { Input } from "@/components/ui/input/input";
 import { useContextProvider } from "@/hooks/useContextProvider";
 import { hashPassword } from "@/lib/commands";
 import { store } from "@/store";
@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import styles from "./vault.module.scss";
 import { useState } from "react";
-import { Icons } from "@/components/ui/icons";
+import { Icons } from "@/components/ui/icons/icons";
 
 const RegisterFormSchema = z
   .object({
@@ -57,8 +57,18 @@ export const VaultRegisterPage = () => {
       <h1 className={styles.heading}>Welcome to null-auth</h1>
       <span>enter your password to create your local account</span>
       <form onSubmit={onSubmit} className={styles.form}>
-        <Input error={errors.password?.message} placeholder="Password" type="password" {...register("password")} />
-        <Input error={errors.confirmPassword?.message} placeholder="Confirm password" type="password" {...register("confirmPassword")} />
+        <Input
+          error={errors.password?.message}
+          placeholder="Password"
+          type="password"
+          {...register("password")}
+        />
+        <Input
+          error={errors.confirmPassword?.message}
+          placeholder="Confirm password"
+          type="password"
+          {...register("confirmPassword")}
+        />
         <Button disabled={isLoading} className={styles.submitButton} width="full">
           {isLoading && <Icons.loading width={15} height={15} className="animate-spin" />}
           Confirm

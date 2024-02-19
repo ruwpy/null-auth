@@ -10,7 +10,10 @@
   padding-top: 5px;
   padding-bottom: 6px;
   border-radius: 10px;
-  transition: background 100ms, color 100ms, opacity 100ms;
+  transition:
+    background 100ms,
+    color 100ms,
+    opacity 100ms;
   cursor: pointer;
   font-size: inherit;
   height: fit-content;

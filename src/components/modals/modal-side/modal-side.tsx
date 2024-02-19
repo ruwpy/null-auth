@@ -2,7 +2,7 @@ import { Variants } from "framer-motion";
 import { Modal, ModalProps } from "../modal-wrapper/modal-wrapper";
 import styles from "./modal-side.module.scss";
 import { motion as m } from "framer-motion";
-import { Icons } from "@/components/ui/icons";
+import { Icons } from "@/components/ui/icons/icons";
 import { constants } from "@/lib/constants";
 import { ReactNode } from "react";
 

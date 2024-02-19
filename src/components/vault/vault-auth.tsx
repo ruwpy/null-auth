@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/ui/icons";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button/button";
+import { Icons } from "@/components/ui/icons/icons";
+import { Input } from "@/components/ui/input/input";
 import { useContextProvider } from "@/hooks/useContextProvider";
 import { verifyPassword } from "@/lib/commands";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -48,7 +48,12 @@ export const VaultAuthenticatePage = () => {
       <span>enter your password below to login</span>
       <form onSubmit={onSubmit} className={styles.form}>
         <span className={styles.error}>{errors.password && errors.password.message}</span>
-        <Input error={errors.password?.message} placeholder="Password" type="password" {...register("password")} />
+        <Input
+          error={errors.password?.message}
+          placeholder="Password"
+          type="password"
+          {...register("password")}
+        />
         <Button disabled={isLoading} className={styles.submitButton} width="full">
           {isLoading && <Icons.loading width={15} height={15} className="animate-spin" />}
           Confirm

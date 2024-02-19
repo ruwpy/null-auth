@@ -1,5 +1,5 @@
-import { Button } from "./ui/button";
-import { Icons } from "./ui/icons";
+import { Button } from "./ui/button/button";
+import { Icons } from "./ui/icons/icons";
 import styles from "./sidebar.module.scss";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
